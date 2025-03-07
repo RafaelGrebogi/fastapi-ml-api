@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import joblib
 
 # This first version is using just regression datasets from Sklearn
 # Datasets: diabetes, california_housing
@@ -158,3 +159,10 @@ equation += f" + {model_calihousing.intercept_:.3f}"
 
 print("California Housing Model Equation:")
 print(equation)
+
+
+# Save trained models
+joblib.dump(model_diabetes, "model_diabetes.pkl")
+joblib.dump(model_calihousing, "model_calihousing.pkl")
+
+print("Models saved successfully!")

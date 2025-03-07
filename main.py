@@ -1,7 +1,13 @@
 from fastapi import FastAPI
 import numpy as np
 import pandas as pd
-from ml_model import model_diabetes, model_calihousing  # Import trained models
+import joblib
+
+#from ml_model import model_diabetes, model_calihousing  # Import trained models
+
+# Load pre-trained models
+model_diabetes = joblib.load("model_diabetes.pkl")
+model_calihousing = joblib.load("model_calihousing.pkl")
 
 app = FastAPI()
 
