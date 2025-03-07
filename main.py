@@ -29,3 +29,4 @@ def predict_calihousing(features: dict):
     df = pd.DataFrame([features])  # Convert input to DataFrame
     prediction = model_calihousing.predict(df)  # Make prediction
     return {"prediction": prediction.tolist()}  # Return as JSON
+
