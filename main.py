@@ -3,6 +3,9 @@ from contextlib import asynccontextmanager
 import asyncio
 import firebase_admin
 from firebase_admin import credentials, db
+import os
+import json
+from datetime import datetime
 
 # --- Firebase setup ---
 cred = credentials.Certificate("firebase_key.json")  # Your service account key
@@ -12,12 +15,23 @@ firebase_admin.initialize_app(cred, {
 
 # --- Background task: Firebase polling ---
 async def poll_firebase():
+    os.makedirs("data/debug", exist_ok=True)  # Ensure save folder exists
+
     while True:
         try:
             ref = db.reference("/ESP32_Develop/TrainingDataset/")  # Replace with your Firebase path
             data = ref.get()
             if data:
-                print("📥 New data from Firebase:", data)
+                # Create a timestamped filename
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                filename = f"data/debug/firebase_data_{timestamp}.json"
+
+                # Save the data to a new file
+                with open(filename, "w") as f:
+                    json.dump(data, f, indent=4)
+
+                print(f"💾 Data saved to {filename}")
+                # print("📥 New data from Firebase:", data)
 
                 # Optional: clear data after processing
                 # ref.delete()
