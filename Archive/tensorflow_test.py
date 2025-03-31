@@ -31,9 +31,9 @@ model.fit(X_train, y_train, epochs=100, batch_size=10, validation_split=0.2, ver
 y_pred = model.predict(X_test)
 
 # Print first 5 predictions
+print("First 5 Targets:", y_test[:5].flatten())
+
 print("First 5 Predictions:", y_pred[:5].flatten())
-
-
 
 y_pred = model.predict(X_test)  # Get predictions
 mse = mean_squared_error(y_test, y_pred)  # Compute MSE
