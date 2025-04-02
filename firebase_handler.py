@@ -56,10 +56,9 @@ async def process_training_data():
 
         # Extract features for ML method
         # Extract features from each batch individually
-        for key, record in data.items():
-            msg_id = record.get("msg_id")
+        for msg_id, record in data.items():
             if not msg_id:
-                print(f"⚠️ Skipping record without msg_id: {key}")
+                print(f"⚠️ Skipping unnamed record")
                 continue
 
             extract_features_from_firebase_batch({msg_id: record})
