@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 # --- CONFIGURATION ---
-FILE_PATH = "esp32-rtdb-export.json"
+FILE_PATH = "data/esp32-rtdb-export.json"
 DATA_PATH = "/ESP32_Develop/TrainingDataset/"
 ARCHIVE_PATH = "/ESP32_Develop/TrainingArchive/"
 SELECTED_PATH = DATA_PATH  # ← change to ARCHIVE_PATH if needed
