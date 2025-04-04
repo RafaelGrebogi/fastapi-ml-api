@@ -2,7 +2,7 @@ import json
 from feature_extraction import extract_features_from_firebase_batch
 
 # Simulated batch data as if received from Firebase
-data_opt = "multi"
+data_opt = "single"
 
 if data_opt == "single":
     test_data = {
@@ -137,7 +137,7 @@ elif data_opt == "multi":
 
 
 # Run the feature extraction
-success, output_dir = extract_features_from_firebase_batch(test_data)
+success, output_dir = extract_features_from_firebase_batch(test_data,  USE_MULTI_MESSAGE_WINDOW=True)
 
 if success:
     print(f"\n✅ Test successful! Features saved in: {output_dir}")
