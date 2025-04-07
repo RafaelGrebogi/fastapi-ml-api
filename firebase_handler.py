@@ -31,7 +31,7 @@ async def process_training_data():
         control_data = control_ref.get()
 
         if not control_data or control_data.get("complete") != True:
-            print("⚠️ Trigger received, but 'complete' flag not set. Aborting.")
+            print("❌ Trigger received, but 'complete' flag not set. Aborting.")
             return False
 
         # Get dataset

@@ -7,7 +7,8 @@ from scipy.fftpack import fft
 from pathlib import Path
 from stat_features import compute_frequency_features, compute_time_features
 
-def extract_features_from_firebase_batch(batch_data: dict, output_dir="data/features"):
+def extract_features_from_firebase_batch(batch_data: dict, output_dir="data/features", USE_MULTI_MESSAGE_WINDOW=False):
+
     """
     Extract statistical features using a sliding window and save one CSV per session.
 
@@ -22,7 +23,7 @@ def extract_features_from_firebase_batch(batch_data: dict, output_dir="data/feat
 
     
     # Configuration
-    USE_MULTI_MESSAGE_WINDOW = False  # ← toggle this flag
+    # USE_MULTI_MESSAGE_WINDOW = False  # ← toggle this flag
 
     WINDOW_SIZE = 128
     STEP_SIZE = 64
