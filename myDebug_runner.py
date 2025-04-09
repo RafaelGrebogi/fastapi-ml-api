@@ -1,8 +1,15 @@
 import json
 from feature_extraction import extract_features_from_firebase_batch
+from ml_manager import run_ml_pipeline
+
+
+
+
+# Choose which module to test/debug
+test_opt = "training"
 
 # Simulated batch data as if received from Firebase
-data_opt = "single"
+data_opt = "multi"
 
 if data_opt == "single":
     test_data = {
@@ -136,10 +143,53 @@ elif data_opt == "multi":
         print(f"{len(test_data)} messages found.")
 
 
-# Run the feature extraction
-success, output_dir = extract_features_from_firebase_batch(test_data,  USE_MULTI_MESSAGE_WINDOW=True)
+if test_opt == "feature":
+    # Run the feature extraction
+    success, output_dir = extract_features_from_firebase_batch(test_data,  USE_MULTI_MESSAGE_WINDOW=True)
 
-if success:
-    print(f"\n✅ Test successful! Features saved in: {output_dir}")
-else:
-    print("\n❌ Test failed.")
+    if success:
+        print(f"\n✅ Test successful! Features saved in: {output_dir}")
+    else:
+        print("\n❌ Test failed.")
+
+elif test_opt == "training":
+     # Run the feature extraction
+    success, output_dir = extract_features_from_firebase_batch(test_data,  USE_MULTI_MESSAGE_WINDOW=True)
+
+    if success:
+        print(f"\n✅ Test successful! Features saved in: {output_dir}")
+    else:
+        print("\n❌ Test failed.")
+    # Run testing pipeline
+    result = run_ml_pipeline("training", output_dir)
+    print("✅ ML Pipeline Result:", result)
+
+elif test_opt == "testing":
+    # Run the feature extraction
+    success, output_dir = extract_features_from_firebase_batch(test_data,  USE_MULTI_MESSAGE_WINDOW=True)
+
+    if success:
+        print(f"\n✅ Test successful! Features saved in: {output_dir}")
+    else:
+        print("\n❌ Test failed.")
+    # Run testing pipeline
+    result = run_ml_pipeline("testing", output_dir)
+    print("✅ ML Pipeline Result:", result)
+
+elif test_opt == "production":  
+    # Run the feature extraction
+    success, output_dir = extract_features_from_firebase_batch(test_data,  USE_MULTI_MESSAGE_WINDOW=True)
+
+    if success:
+        print(f"\n✅ Test successful! Features saved in: {output_dir}")
+    else:
+        print("\n❌ Test failed.")
+    # Run testing pipeline
+    result = run_ml_pipeline("production", output_dir)
+    print("✅ ML Pipeline Result:", result)
+
+
+
+
+
+
