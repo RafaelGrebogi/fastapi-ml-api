@@ -4,6 +4,7 @@ import os
 import json
 from datetime import datetime
 import asyncio
+from feature_extraction import extract_features_from_firebase_batch
 
 # Firebase setup
 if not firebase_admin._apps:
@@ -30,7 +31,7 @@ async def process_training_data():
         control_data = control_ref.get()
 
         if not control_data or control_data.get("complete") != True:
-            print("⚠️ Trigger received, but 'complete' flag not set. Aborting.")
+            print("❌ Trigger received, but 'complete' flag not set. Aborting.")
             return False
 
         # Get dataset
@@ -52,6 +53,16 @@ async def process_training_data():
         archive_ref = db.reference(f"{ARCHIVE_PATH}/{timestamp}")
         archive_ref.set(data)
         print("📦 Data archived in Firebase.")
+
+        # Extract features for ML method
+        # Extract features from each batch individually
+        for msg_id, record in data.items():
+            if not msg_id:
+                print(f"⚠️ Skipping unnamed record")
+                continue
+
+            extract_features_from_firebase_batch({msg_id: record})
+
 
         # Clean up original data and control flag
         data_ref.delete()
