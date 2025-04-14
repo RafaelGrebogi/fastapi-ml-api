@@ -1,38 +1,56 @@
 from fastapi import FastAPI
-import numpy as np
-import pandas as pd
-import joblib
+from contextlib import asynccontextmanager
+import asyncio
+import firebase_admin
+from firebase_admin import credentials, db
+import os
+import json
+from datetime import datetime
 
-#from ml_model import model_diabetes, model_calihousing  # Import trained models
+# --- Firebase setup ---
+cred = credentials.Certificate("firebase_key.json")  # Your service account key
+firebase_admin.initialize_app(cred, {
+    "databaseURL": "https://esp32-datalogger-c9c32-default-rtdb.asia-southeast1.firebasedatabase.app/"  # Replace with your Firebase URL
+})
 
-# Load pre-trained models
-model_diabetes = joblib.load("model_diabetes.pkl")
-model_calihousing = joblib.load("model_calihousing.pkl")
+# --- Background task: Firebase polling ---
+async def poll_firebase():
+    os.makedirs("data/debug", exist_ok=True)  # Ensure save folder exists
 
-app = FastAPI()
+    while True:
+        try:
+            ref = db.reference("/ESP32_Develop/TrainingDataset/")  # Replace with your Firebase path
+            data = ref.get()
+            if data:
+                # Create a timestamped filename
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                filename = f"data/debug/firebase_data_{timestamp}.json"
 
-@app.post("/predict_diabetes")
-def predict(features: dict):
-    """
-    Receives input features as JSON, processes them, 
-    and returns a diabetes prediction using the trained model.
-    """
-    # Convert input dictionary to DataFrame
-    df = pd.DataFrame([features])
+                # Save the data to a new file
+                with open(filename, "w") as f:
+                    json.dump(data, f, indent=4)
 
-    # Make a prediction
-    prediction = model_diabetes.predict(df)
+                print(f"💾 Data saved to {filename}")
+                # print("📥 New data from Firebase:", data)
 
-    # Return the result as JSON
-    return {"prediction": prediction.tolist()}
+                # Optional: clear data after processing
+                # ref.delete()
 
-@app.post("/predict_calihousing")
-def predict_calihousing(features: dict):
-    """
-    Receives input features as JSON, processes them, 
-    and returns a prediction using the California Housing model.
-    """
-    df = pd.DataFrame([features])  # Convert input to DataFrame
-    prediction = model_calihousing.predict(df)  # Make prediction
-    return {"prediction": prediction.tolist()}  # Return as JSON
+        except Exception as e:
+            print("⚠️ Error while polling Firebase:", e)
 
+        await asyncio.sleep(10)  # Poll every 10 seconds
+
+# --- FastAPI lifespan setup ---
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    asyncio.create_task(poll_firebase())  # Start the background polling task
+    yield
+    print("🔚 FastAPI is shutting down.")
+
+# --- FastAPI app ---
+app = FastAPI(lifespan=lifespan)
+
+@app.get("/")
+def home():
+    return {"message": "FastAPI with Firebase polling is running"}
