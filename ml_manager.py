@@ -39,7 +39,7 @@ def train_model(df: pd.DataFrame) -> dict:
     return {
         "status": "training complete",
         "model_path": str(MODEL_PATH),
-        "features": list(X.columns),
+        # "features": list(X.columns),
         "samples": len(X),
     }
 

@@ -9,6 +9,7 @@ def home():
 
 @app.post("/trigger-training")
 async def trigger_training():
+    breakpoint()
     success = await process_training_data()
     if success:
         return {"status": "success", "message": "Training data processed successfully."}
@@ -18,6 +19,7 @@ async def trigger_training():
 
 @app.post("/trigger-testing")
 def trigger_testing():
+    breakpoint()
     result = process_testing_data()
     return result
 

@@ -6,10 +6,10 @@ from ml_manager import run_ml_pipeline
 
 
 # Choose which module to test/debug
-test_opt = "feature"
+test_opt = "testing"
 
 # Simulated batch data as if received from Firebase
-data_opt = "single"
+data_opt = "multi"
 
 if data_opt == "single":
     test_data = {
@@ -242,7 +242,7 @@ elif data_opt == "multi":
         nSamples = 10
 
         # Load the JSON file
-        with open("/mnt/c/Users/rafag/ml-api/data/esp32-rtdb-export.json", "r") as f:
+        with open("/mnt/c/Users/rafag/ml-api/data/esp32-rtdb-Testing.json", "r") as f:
             all_data = json.load(f)
 
         # Navigate into the nested 'TrainingDataset' branch
