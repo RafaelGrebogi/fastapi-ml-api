@@ -134,11 +134,23 @@ if data_opt == "single":
 elif data_opt == "multi":
         import json
         nSamples = 10
-
         # Load the JSON file
-        with open("/mnt/c/Users/rafag/ml-api/data/esp32-rtdb-ML_TestData.json", "r") as f:
+        if test_opt == "training":
+            with open("/mnt/c/Users/rafag/ml-api/data/esp32-v1_TrainData.json", "r") as f:
+                all_data = json.load(f)
+        elif test_opt == "testing":
+            with open("/mnt/c/Users/rafag/ml-api/data/esp32-v1_TestData.json", "r") as f:
+                all_data = json.load(f)
+        else:
+            with open("/mnt/c/Users/rafag/ml-api/data/esp32-rtdb-ML_TestData.json", "r") as f:
+            # with open("/mnt/c/Users/rafag/ml-api/data/esp32-rtdb-Testing.json", "r") as f:
+              all_data = json.load(f)
+
+        
+        # with open("/mnt/c/Users/rafag/ml-api/data/esp32-v1_TestData.json", "r") as f:
+        # with open("/mnt/c/Users/rafag/ml-api/data/esp32-rtdb-ML_TestData.json", "r") as f:
         # with open("/mnt/c/Users/rafag/ml-api/data/esp32-rtdb-Testing.json", "r") as f:
-            all_data = json.load(f)
+            # all_data = json.load(f)
 
         # Navigate into the nested 'TrainingDataset' branch
         training_data = all_data.get("ESP32_Develop", {}).get("TrainingDataset", {})

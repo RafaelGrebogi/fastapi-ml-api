@@ -70,7 +70,7 @@ def extract_features_from_firebase_batch(batch_data: dict, output_dir="data/feat
     # Configuration
     # USE_MULTI_MESSAGE_WINDOW = False  # ← toggle this flag
 
-    WINDOW_SIZE = 128
+    WINDOW_SIZE = 64
     # STEP_SIZE = 64
 
     accel_map = {'x': 'accel_x', 'y': 'accel_y', 'z': 'accel_z'}
