@@ -44,6 +44,9 @@ def train_model(df: pd.DataFrame) -> dict:
     }
 
 def test_model(df: pd.DataFrame) -> dict:
+    # Drop non-numeric tracking columns
+    df = df.drop(columns=[col for col in df.columns if col in ("window_id", "msg_id")], errors="ignore")
+
     X = df.drop(columns=["label"])
     y_true = df["label"]
 
