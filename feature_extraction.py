@@ -7,7 +7,52 @@ from scipy.fftpack import fft
 from pathlib import Path
 from stat_features import compute_frequency_features, compute_time_features
 
-def extract_features_from_firebase_batch(batch_data: dict, output_dir="data/features", USE_MULTI_MESSAGE_WINDOW=False):
+
+# def extract_window_features(window_df, accel_map, gyro_map):
+#     features = {}
+#     for axis, col in accel_map.items():
+#         if col in window_df.columns:
+#             signal = window_df[col].values
+#             features.update(compute_time_features(signal, f'acc_{axis}'))
+#             fft_vals = np.abs(fft(signal))[:len(signal) // 2]
+#             features.update(compute_frequency_features(fft_vals, f'acc_{axis}'))
+#     for axis, col in gyro_map.items():
+#         if col in window_df.columns:
+#             signal = window_df[col].values
+#             features.update(compute_time_features(signal, f'gyro_{axis}'))
+#             fft_vals = np.abs(fft(signal))[:len(signal) // 2]
+#             features.update(compute_frequency_features(fft_vals, f'gyro_{axis}'))
+#     return features
+
+def extract_window_features(window_df, accel_map, gyro_map, label=None, msg_id=None):
+    features = {}
+
+    for axis, col in accel_map.items():
+        if col in window_df.columns:
+            signal = window_df[col].values
+            features.update(compute_time_features(signal, f'acc_{axis}'))
+            fft_vals = np.abs(fft(signal))[:len(signal) // 2]
+            features.update(compute_frequency_features(fft_vals, f'acc_{axis}'))
+
+    for axis, col in gyro_map.items():
+        if col in window_df.columns:
+            signal = window_df[col].values
+            features.update(compute_time_features(signal, f'gyro_{axis}'))
+            fft_vals = np.abs(fft(signal))[:len(signal) // 2]
+            features.update(compute_frequency_features(fft_vals, f'gyro_{axis}'))
+
+    # Add label and message ID if provided
+    if label is not None:
+        features["label"] = label
+    if msg_id is not None:
+        features["msg_id"] = msg_id
+
+    return features
+
+
+
+
+def extract_features_from_firebase_batch(batch_data: dict, output_dir="data/features", USE_MULTI_MESSAGE_WINDOW=False, csv_path: str = "") -> str:
 
     """
     Extract statistical features using a sliding window and save one CSV per session.
@@ -26,58 +71,71 @@ def extract_features_from_firebase_batch(batch_data: dict, output_dir="data/feat
     # USE_MULTI_MESSAGE_WINDOW = False  # ← toggle this flag
 
     WINDOW_SIZE = 128
-    STEP_SIZE = 64
+    # STEP_SIZE = 64
 
     accel_map = {'x': 'accel_x', 'y': 'accel_y', 'z': 'accel_z'}
     gyro_map = {'x': 'gyro_x', 'y': 'gyro_y', 'z': 'gyro_z'}
 
     all_features = []
-
     if USE_MULTI_MESSAGE_WINDOW:
-        # --- Accumulate all samples from all messages ---
         full_sample_list = []
-        labels = []
 
         for msg_id, content in batch_data.items():
             samples = content.get("samples", [])
-            label = samples[0].get("target", "Unknown") if samples else "Unknown"
-
             if not samples:
                 print(f"⚠️ No samples found in message: {msg_id}")
                 continue
-
             full_sample_list.extend(samples)
-            labels.append(label)
 
         if len(full_sample_list) < WINDOW_SIZE:
             print(f"⚠️ Not enough combined samples: {len(full_sample_list)}")
             return False, None
 
-        # Use the most frequent label across messages
-        label = max(set(labels), key=labels.count)
         df_all = pd.DataFrame(full_sample_list)
+        current_label = df_all.iloc[0]["target"]
+        window = []
+        window_index = 0
 
-        for start in range(0, len(df_all) - WINDOW_SIZE + 1, STEP_SIZE):
-            window = df_all.iloc[start:start + WINDOW_SIZE]
-            features = {}
+        for idx, row in df_all.iterrows():
+            if row["target"] == current_label:
+                window.append(row)
+                if len(window) == WINDOW_SIZE:
+                    # Enough samples for a full window
+                    window_df = pd.DataFrame(window)
+                    # features = extract_window_features(window_df, accel_map, gyro_map)
+                    features = extract_window_features(window_df, accel_map, gyro_map, label=current_label, msg_id=f"window_{window_index}")
 
-            for axis, col in accel_map.items():
-                if col in window.columns:
-                    signal = window[col].values
-                    features.update(compute_time_features(signal, f'acc_{axis}'))
-                    fft_vals = np.abs(fft(signal))[:len(signal) // 2]
-                    features.update(compute_frequency_features(fft_vals, f'acc_{axis}'))
+                    # features["label"] = current_label
+                    # features["msg_id"] = f"window_{window_index}"
+                    all_features.append(features)
+                    window = []  # Start new window
+                    window_index += 1
+            else:
+                # Label changed mid-window → process what we have (even if small)
+                if len(window) > 10:  # Only save windows with enough samples (optional threshold)
+                    window_df = pd.DataFrame(window)
+                    features = extract_window_features(window_df, accel_map, gyro_map, label=current_label, msg_id=f"window_{window_index}")
 
-            for axis, col in gyro_map.items():
-                if col in window.columns:
-                    signal = window[col].values
-                    features.update(compute_time_features(signal, f'gyro_{axis}'))
-                    fft_vals = np.abs(fft(signal))[:len(signal) // 2]
-                    features.update(compute_frequency_features(fft_vals, f'gyro_{axis}'))
+                    # features = extract_window_features(window_df, accel_map, gyro_map)
+                    # features["label"] = current_label
+                    # features["msg_id"] = f"window_{window_index}"
+                    all_features.append(features)
+                    window_index += 1
 
-            features["label"] = label
-            features["msg_id"] = f"window_{start}"
+                # Start a new window with the new label
+                window = [row]
+                current_label = row["target"]
+
+        # After loop ends, handle leftover samples
+        if len(window) > 10:
+            window_df = pd.DataFrame(window)
+            features = extract_window_features(window_df, accel_map, gyro_map, label=current_label, msg_id=f"window_{window_index}")
+
+            # features = extract_window_features(window_df, accel_map, gyro_map)
+            # features["label"] = current_label
+            # features["msg_id"] = f"window_{window_index}"
             all_features.append(features)
+
 
     else:
         # --- Original per-message logic ---
@@ -96,22 +154,13 @@ def extract_features_from_firebase_batch(batch_data: dict, output_dir="data/feat
             # Fixed window (no sliding)
             features = {}
 
-            for axis, col in accel_map.items():
-                if col in df.columns:
-                    signal = df[col].values
-                    features.update(compute_time_features(signal, f'acc_{axis}'))
-                    fft_vals = np.abs(fft(signal))[:len(signal) // 2]
-                    features.update(compute_frequency_features(fft_vals, f'acc_{axis}'))
-
-            for axis, col in gyro_map.items():
-                if col in df.columns:
-                    signal = df[col].values
-                    features.update(compute_time_features(signal, f'gyro_{axis}'))
-                    fft_vals = np.abs(fft(signal))[:len(signal) // 2]
-                    features.update(compute_frequency_features(fft_vals, f'gyro_{axis}'))
-
-            features["label"] = label
-            features["msg_id"] = msg_id
+             # Fixed window (no sliding)
+            features = extract_window_features(df, accel_map, gyro_map, label=label, msg_id=msg_id)
+            # features = extract_window_features(df, accel_map, gyro_map)
+            
+            # Then continue saving features as you already do
+            # features["label"] = label  # (from your batch_data)
+            # features["msg_id"] = msg_id
             all_features.append(features)
 
             

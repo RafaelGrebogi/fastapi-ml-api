@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from firebase_handler import process_training_data
+from firebase_handler import process_training_data, process_testing_data, process_production_data
 
 app = FastAPI()
 
@@ -9,6 +9,7 @@ def home():
 
 @app.post("/trigger-training")
 async def trigger_training():
+    breakpoint()
     success = await process_training_data()
     if success:
         return {"status": "success", "message": "Training data processed successfully."}
@@ -16,6 +17,17 @@ async def trigger_training():
         return {"status": "fail", "message": "Failed to process training data."}
 
 
+@app.post("/trigger-testing")
+def trigger_testing():
+    breakpoint()
+    result = process_testing_data()
+    return result
+
+
+@app.post("/trigger-production")
+def trigger_production():
+    result = process_production_data()
+    return result
 
 #----------------------------------
 # from fastapi import FastAPI
