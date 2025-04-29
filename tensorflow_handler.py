@@ -9,7 +9,7 @@ import numpy as np
 
 MODEL_DIR = "tf_models"
 os.makedirs(MODEL_DIR, exist_ok=True)
-MODEL_PATH = os.path.join(MODEL_DIR, "walking_model.h5")
+MODEL_PATH = os.path.join(MODEL_DIR, "walking_model.keras")
 
 RESULTS_DIR = "tf_results"
 os.makedirs(RESULTS_DIR, exist_ok=True)
@@ -17,11 +17,13 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 encoder = LabelEncoder()
 
 def build_model(input_dim, num_classes):
-    model = keras.Sequential([
-        layers.Dense(64, activation='relu', input_shape=(input_dim,)),
-        layers.Dense(32, activation='relu'),
-        layers.Dense(num_classes, activation='softmax')
-    ])
+    inputs = keras.Input(shape=(input_dim,))
+    x = layers.Dense(64, activation='relu')(inputs)
+    x = layers.Dense(32, activation='relu')(x)
+    outputs = layers.Dense(num_classes, activation='softmax')(x)
+    
+    model = keras.Model(inputs=inputs, outputs=outputs)
+
     model.compile(
         optimizer='adam',
         loss='sparse_categorical_crossentropy',
@@ -29,7 +31,8 @@ def build_model(input_dim, num_classes):
     )
     return model
 
-def train_model(X, y, epochs=10):
+
+def train_model(X, y, epochs=25):
     input_dim = X.shape[1]
     num_classes = len(np.unique(y))
 
