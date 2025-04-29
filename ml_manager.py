@@ -5,6 +5,9 @@ from pathlib import Path
 from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
 
+
+
+
 MODEL_PATH = Path("models/model.pkl")
 MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
 
