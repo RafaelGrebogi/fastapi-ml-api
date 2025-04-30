@@ -10,7 +10,7 @@ This project provides a FastAPI-based machine learning API that allows users to 
 ## 🛠 Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ml-api.git
+   git clone https://github.com/RafaelGrebogi/ml-api.git
    cd ml-api
    ```
 
@@ -28,7 +28,7 @@ This project provides a FastAPI-based machine learning API that allows users to 
 ## 🚀 Running the API
 Start the FastAPI server:
 ```bash
-uvicorn main:app --reload
+uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
 ## 💼 API Endpoints
