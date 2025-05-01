@@ -100,10 +100,12 @@ def process_production_data():
 
 # ===========================================
 # ===========================================
+
+
 def download_data_if_complete(firebase_data_path: str, firebase_control_path: str, local_dir: str, archive_dir: str) -> str:
     """
     Checks the 'complete' flag in Firebase, downloads the dataset if ready,
-    saves it locally, and returns the file path.
+    saves it locally, archives it, and deletes it from the original path.
     """
     import time
     from datetime import datetime
@@ -133,12 +135,14 @@ def download_data_if_complete(firebase_data_path: str, firebase_control_path: st
     save_path = Path(local_dir) / filename
     save_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Archive in Firebase
+    # ✅ Archive in Firebase
     archive_ref = db.reference(f"{archive_dir}/{timestamp}")
     archive_ref.set(data)
     print(" Data archived in Firebase.")
 
+
     #  Delete original training data from Firebase
+
     data_ref.delete()
     print(" Original data deleted from Firebase.")
 
@@ -146,5 +150,5 @@ def download_data_if_complete(firebase_data_path: str, firebase_control_path: st
     with open(save_path, "w") as f:
         json.dump(data, f, indent=2)
 
-    print(f" Firebase data saved to {save_path}")
-    return data, data_ref
+    print(f" Firebase data saved to: {save_path}")
+    return data, archive_ref
