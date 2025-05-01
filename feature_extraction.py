@@ -8,21 +8,6 @@ from pathlib import Path
 from stat_features import compute_frequency_features, compute_time_features
 
 
-# def extract_window_features(window_df, accel_map, gyro_map):
-#     features = {}
-#     for axis, col in accel_map.items():
-#         if col in window_df.columns:
-#             signal = window_df[col].values
-#             features.update(compute_time_features(signal, f'acc_{axis}'))
-#             fft_vals = np.abs(fft(signal))[:len(signal) // 2]
-#             features.update(compute_frequency_features(fft_vals, f'acc_{axis}'))
-#     for axis, col in gyro_map.items():
-#         if col in window_df.columns:
-#             signal = window_df[col].values
-#             features.update(compute_time_features(signal, f'gyro_{axis}'))
-#             fft_vals = np.abs(fft(signal))[:len(signal) // 2]
-#             features.update(compute_frequency_features(fft_vals, f'gyro_{axis}'))
-#     return features
 
 def extract_window_features(window_df, accel_map, gyro_map, label=None, msg_id=None):
     features = {}

@@ -43,8 +43,6 @@ async def process_training_data():
         data, data_ref = download_data_if_complete(DATA_PATH, CONTROL_PATH, TRAINING_DATA_DIR, ARCHIVE_PATH)
 
 
-        
-
         csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
 
         # Run training ML pipeline
@@ -73,13 +71,9 @@ def process_testing_data():
     data, _ = download_data_if_complete(FIREBASE_TESTING_PATH, CONTROL_PATH, TESTING_DATA_DIR, ARCHIVE_PATH)
 
     # Extract features for ML method
-    # Extract features from each batch individually
-    for msg_id, record in data.items():
-        if not msg_id:
-            print(f"⚠️ Skipping unnamed record")
-            continue
+    # Extract features from each batch
 
-        csv_path = extract_features_from_firebase_batch({msg_id: record}, USE_MULTI_MESSAGE_WINDOW=True)
+    csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
 
     # Run testing pipeline
     result = run_ml_pipeline("testing", csv_path)
@@ -95,13 +89,9 @@ def process_production_data():
     data, _ = download_data_if_complete(FIREBASE_PRODUCTION_PATH, CONTROL_PATH, PRODUCTION_DATA_DIR, ARCHIVE_PATH)
 
     # Extract features for ML method
-    # Extract features from each batch individually
-    for msg_id, record in data.items():
-        if not msg_id:
-            print(f"⚠️ Skipping unnamed record")
-            continue
+    # Extract features from each batch
 
-        csv_path = extract_features_from_firebase_batch({msg_id: record}, USE_MULTI_MESSAGE_WINDOW=True)
+    csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
 
     # Run prediction pipeline
     result = run_ml_pipeline("production", csv_path)
@@ -150,7 +140,9 @@ def download_data_if_complete(firebase_data_path: str, firebase_control_path: st
     archive_ref.set(data)
     print(" Data archived in Firebase.")
 
-    # ✅ Delete original training data from Firebase
+
+    #  Delete original training data from Firebase
+
     data_ref.delete()
     print(" Original data deleted from Firebase.")
 
