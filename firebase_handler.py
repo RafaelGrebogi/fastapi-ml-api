@@ -43,44 +43,7 @@ async def process_training_data():
         data, data_ref = download_data_if_complete(DATA_PATH, CONTROL_PATH, TRAINING_DATA_DIR, ARCHIVE_PATH)
 
 
-        # # Small precaution delay in case ESP32 is still writing
-        # await asyncio.sleep(2)
-
-        # control_ref = db.reference(CONTROL_PATH)
-        # control_data = control_ref.get()
-
-        # if not control_data or control_data.get("complete") != True:
-        #     print("❌ Trigger received, but 'complete' flag not set. Aborting.")
-        #     return False
-
-        # # Get dataset
-        # data_ref = db.reference(DATA_PATH)
-        # data = data_ref.get()
-
-        # if not data:
-        #     print("❌ No training data found.")
-        #     return False
-
-        # # Save locally
-        # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        # filename = f"data/training/training_data_{timestamp}.json"
-        # with open(filename, "w") as f:
-        #     json.dump(data, f, indent=4)
-        # print(f"💾 Training data saved to: {filename}")
-
-        # # Archive in Firebase
-        # archive_ref = db.reference(f"{ARCHIVE_PATH}/{timestamp}")
-        # archive_ref.set(data)
-        # print("📦 Data archived in Firebase.")
-
-        # Extract features for ML method
-        # Extract features from each batch individually
-        for msg_id, record in data.items():
-            if not msg_id:
-                print(f"⚠️ Skipping unnamed record")
-                continue
-
-            csv_path = extract_features_from_firebase_batch({msg_id: record}, USE_MULTI_MESSAGE_WINDOW=True)
+        csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
 
         # Run training ML pipeline
         ml_result = run_ml_pipeline("training", csv_path)
@@ -108,13 +71,9 @@ def process_testing_data():
     data, _ = download_data_if_complete(FIREBASE_TESTING_PATH, CONTROL_PATH, TESTING_DATA_DIR, ARCHIVE_PATH)
 
     # Extract features for ML method
-    # Extract features from each batch individually
-    for msg_id, record in data.items():
-        if not msg_id:
-            print(f"⚠️ Skipping unnamed record")
-            continue
+    # Extract features from each batch
 
-        csv_path = extract_features_from_firebase_batch({msg_id: record}, USE_MULTI_MESSAGE_WINDOW=True)
+    csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
 
     # Run testing pipeline
     result = run_ml_pipeline("testing", csv_path)
@@ -130,13 +89,9 @@ def process_production_data():
     data, _ = download_data_if_complete(FIREBASE_PRODUCTION_PATH, CONTROL_PATH, PRODUCTION_DATA_DIR, ARCHIVE_PATH)
 
     # Extract features for ML method
-    # Extract features from each batch individually
-    for msg_id, record in data.items():
-        if not msg_id:
-            print(f"⚠️ Skipping unnamed record")
-            continue
+    # Extract features from each batch
 
-        csv_path = extract_features_from_firebase_batch({msg_id: record}, USE_MULTI_MESSAGE_WINDOW=True)
+    csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
 
     # Run prediction pipeline
     result = run_ml_pipeline("production", csv_path)
@@ -183,6 +138,11 @@ def download_data_if_complete(firebase_data_path: str, firebase_control_path: st
     archive_ref.set(data)
     print(" Data archived in Firebase.")
 
+    #  Delete original training data from Firebase
+    data_ref.delete()
+    print(" Original data deleted from Firebase.")
+
+    # Save locally to file
     with open(save_path, "w") as f:
         json.dump(data, f, indent=2)
 

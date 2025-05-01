@@ -7,7 +7,7 @@ from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
 
 # Import TensorFlow handler
-from tensorflow_handler import train_model as tf_train_model, predict_samples as tf_predict_samples
+# from tensorflow_handler import train_model as tf_train_model, predict_samples as tf_predict_samples
 
 #  MODE SELECTOR 
 USE_TENSORFLOW = False  # ➔ Set True to use TensorFlow, False to use RandomForest
@@ -39,6 +39,7 @@ def train_model(df: pd.DataFrame) -> dict:
     y = df["label"]
 
     if USE_TENSORFLOW:
+        from tensorflow_handler import train_model as tf_train_model
         print(" Training TensorFlow model...")
         y_encoded = encode_labels(y)
         tf_train_model(X.values, y_encoded, epochs=25)
@@ -67,6 +68,7 @@ def test_model(df: pd.DataFrame) -> dict:
     y_true = df["label"]
 
     if USE_TENSORFLOW:
+        from tensorflow_handler import predict_samples as tf_predict_samples
         print(" Testing TensorFlow model...")
         y_encoded = encode_labels(y_true)
         y_pred = tf_predict_samples(X.values)
@@ -100,6 +102,7 @@ def test_model(df: pd.DataFrame) -> dict:
 
 def predict_model(df: pd.DataFrame) -> dict:
     if USE_TENSORFLOW:
+        from tensorflow_handler import predict_samples as tf_predict_samples
         print(" Predicting with TensorFlow model...")
         y_pred = tf_predict_samples(df.values)
     else:
