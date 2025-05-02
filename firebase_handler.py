@@ -37,11 +37,19 @@ os.makedirs(PRODUCTION_DATA_DIR, exist_ok=True)
 
 # ===========================================
 # ===========================================
-async def process_training_data():
+# async def process_training_data():
+#     try:
+
+#         data, data_ref = download_data_if_complete(DATA_PATH, CONTROL_PATH, TRAINING_DATA_DIR, ARCHIVE_PATH)
+async def process_training_data(device_id: str):
     try:
-
-        data, data_ref = download_data_if_complete(DATA_PATH, CONTROL_PATH, TRAINING_DATA_DIR, ARCHIVE_PATH)
-
+        data, data_ref = download_data_if_complete(
+            firebase_data_path=DATA_PATH,
+            firebase_control_path=CONTROL_PATH,
+            local_dir=TRAINING_DATA_DIR,
+            archive_dir=ARCHIVE_PATH,
+            EXPECTED_DEVICE_ID=device_id  #  new parameter
+        )
 
         # # Small precaution delay in case ESP32 is still writing
         # await asyncio.sleep(2)
@@ -145,7 +153,8 @@ def process_production_data():
 
 # ===========================================
 # ===========================================
-def download_data_if_complete(firebase_data_path: str, firebase_control_path: str, local_dir: str, archive_dir: str) -> str:
+# def download_data_if_complete(firebase_data_path: str, firebase_control_path: str, local_dir: str, archive_dir: str) -> str:
+def download_data_if_complete(firebase_data_path, firebase_control_path, local_dir, archive_dir, EXPECTED_DEVICE_ID)-> str:
     """
     Checks the 'complete' flag in Firebase, downloads the dataset if ready,
     saves only matching device_id entries locally, archives them, and
@@ -155,7 +164,7 @@ def download_data_if_complete(firebase_data_path: str, firebase_control_path: st
     from datetime import datetime
     from pathlib import Path
 
-    EXPECTED_DEVICE_ID = "C85D60BD9E7C"  # ✅ Set your device_id here
+    
 
     # Delay to ensure ESP32 has finished uploading
     time.sleep(2)
