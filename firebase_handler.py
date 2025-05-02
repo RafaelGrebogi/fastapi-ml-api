@@ -148,11 +148,14 @@ def process_production_data():
 def download_data_if_complete(firebase_data_path: str, firebase_control_path: str, local_dir: str, archive_dir: str) -> str:
     """
     Checks the 'complete' flag in Firebase, downloads the dataset if ready,
-    saves it locally, and returns the file path.
+    saves only matching device_id entries locally, archives them, and
+    restores unmatched entries to the original path.
     """
     import time
     from datetime import datetime
     from pathlib import Path
+
+    EXPECTED_DEVICE_ID = "C85D60BD9E7C"  # ✅ Set your device_id here
 
     # Delay to ensure ESP32 has finished uploading
     time.sleep(2)
@@ -164,7 +167,7 @@ def download_data_if_complete(firebase_data_path: str, firebase_control_path: st
         print("❌ Trigger received, but 'complete' flag not set. Aborting.")
         raise RuntimeError("Control flag not set to 'complete'.")
 
-    # Download data
+    # Download full data
     data_ref = db.reference(firebase_data_path)
     data = data_ref.get()
 
@@ -172,19 +175,36 @@ def download_data_if_complete(firebase_data_path: str, firebase_control_path: st
         print("❌ No data found at Firebase path.")
         raise RuntimeError("No data found in Firebase.")
 
-    # Save locally
+    # Split into matching and unmatched device_ids
+    matching_data = {k: v for k, v in data.items() if v.get("device_id") == EXPECTED_DEVICE_ID}
+    unmatched_data = {k: v for k, v in data.items() if v.get("device_id") != EXPECTED_DEVICE_ID}
+
+    if not matching_data:
+        print("⚠️ No matching device_id found. Returning data to Firebase.")
+        data_ref.set(data)  # Restore original dataset
+        raise RuntimeError("No data matched expected device_id. Skipping processing.")
+
+    # Archive only matching data
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    archive_ref = db.reference(f"{archive_dir}/{timestamp}")
+    archive_ref.set(matching_data)
+    print("📦 Matching data archived in Firebase.")
+
+    # Save matching data locally
     filename = f"data_{timestamp}.json"
     save_path = Path(local_dir) / filename
     save_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Archive in Firebase
-    archive_ref = db.reference(f"{archive_dir}/{timestamp}")
-    archive_ref.set(data)
-    print(" Data archived in Firebase.")
-
     with open(save_path, "w") as f:
-        json.dump(data, f, indent=2)
+        json.dump(matching_data, f, indent=2)
+    print(f"💾 Matching Firebase data saved to: {save_path}")
 
-    print(f" Firebase data saved to {save_path}")
-    return data, data_ref
+    # Replace original path with unmatched entries (or clear it)
+    if unmatched_data:
+        data_ref.set(unmatched_data)
+        print("🔁 Unmatched data restored to Firebase.")
+    else:
+        data_ref.delete()
+        print("🧹 All data processed and deleted from Firebase.")
+
+    return matching_data, data_ref
