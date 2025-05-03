@@ -37,11 +37,15 @@ os.makedirs(PRODUCTION_DATA_DIR, exist_ok=True)
 
 # ===========================================
 # ===========================================
-async def process_training_data():
+async def process_training_data(device_id: str):
     try:
-
-        data, data_ref = download_data_if_complete(DATA_PATH, CONTROL_PATH, TRAINING_DATA_DIR, ARCHIVE_PATH)
-
+        data, data_ref = download_data_if_complete(
+            firebase_data_path=DATA_PATH,
+            firebase_control_path=CONTROL_PATH,
+            local_dir=TRAINING_DATA_DIR,
+            archive_dir=ARCHIVE_PATH,
+            EXPECTED_DEVICE_ID=device_id  # ✅ new parameter
+        )
 
         csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
 
@@ -102,13 +106,13 @@ def process_production_data():
 # ===========================================
 
 
-def download_data_if_complete(firebase_data_path: str, firebase_control_path: str, local_dir: str, archive_dir: str) -> str:
+def download_data_if_complete(firebase_data_path, firebase_control_path, local_dir, archive_dir, EXPECTED_DEVICE_ID)-> tuple:
     """
     Checks the 'complete' flag in Firebase, downloads the dataset if ready,
     saves it locally, archives it, and deletes it from the original path.
     """
     import time
-    from datetime import datetime
+    # from datetime import datetime
     from pathlib import Path
 
     # Delay to ensure ESP32 has finished uploading
@@ -129,26 +133,36 @@ def download_data_if_complete(firebase_data_path: str, firebase_control_path: st
         print("❌ No data found at Firebase path.")
         raise RuntimeError("No data found in Firebase.")
 
-    # Save locally
+    # Split into matching and unmatched device_ids
+    matching_data = {k: v for k, v in data.items() if v.get("device_id") == EXPECTED_DEVICE_ID}
+    unmatched_data = {k: v for k, v in data.items() if v.get("device_id") != EXPECTED_DEVICE_ID}
+
+    if not matching_data:
+        print("⚠️ No matching device_id found. Returning data to Firebase.")
+        data_ref.set(data)  # Restore original dataset
+        raise RuntimeError("No data matched expected device_id. Skipping processing.")
+
+    # Archive only matching data
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    archive_ref = db.reference(f"{archive_dir}/{timestamp}")
+    archive_ref.set(matching_data)
+    print(" Matching data archived in Firebase.")
+
+    # Save matching data locally
     filename = f"data_{timestamp}.json"
     save_path = Path(local_dir) / filename
     save_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # ✅ Archive in Firebase
-    archive_ref = db.reference(f"{archive_dir}/{timestamp}")
-    archive_ref.set(data)
-    print(" Data archived in Firebase.")
-
-
-    #  Delete original training data from Firebase
-
-    data_ref.delete()
-    print(" Original data deleted from Firebase.")
-
-    # Save locally to file
     with open(save_path, "w") as f:
-        json.dump(data, f, indent=2)
+        json.dump(matching_data, f, indent=2)
+    print(f" Matching Firebase data saved to: {save_path}")
 
-    print(f" Firebase data saved to: {save_path}")
-    return data, archive_ref
+    # Replace original path with unmatched entries (or clear it)
+    if unmatched_data:
+        data_ref.set(unmatched_data)
+        print(" Unmatched data restored to Firebase.")
+    else:
+        data_ref.delete()
+        print(" All data processed and deleted from Firebase.")
+
+    return matching_data, data_ref

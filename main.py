@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi import Request
 from firebase_handler import process_training_data, process_testing_data, process_production_data
 
 app = FastAPI()
@@ -8,9 +9,14 @@ def home():
     return {"message": "FastAPI ready to process training data."}
 
 @app.post("/trigger-training")
-async def trigger_training():
-    # breakpoint()
-    success = await process_training_data()
+async def trigger_training(request: Request):
+    data = await request.json()
+    device_id = data.get("device_id")
+
+    if not device_id:
+        return {"error": "Missing device_id in request"}
+
+    success = await process_training_data(device_id=device_id)
     if success:
         return {"status": "success", "message": "Training data processed successfully."}
     else:
