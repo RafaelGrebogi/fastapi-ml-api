@@ -24,15 +24,23 @@ async def trigger_training(request: Request):
 
 
 @app.post("/trigger-testing")
-def trigger_testing():
-    # breakpoint()
-    result = process_testing_data()
+async def trigger_testing(request: Request):
+    body = await request.json()
+    device_id = body.get("device_id")
+    if not device_id:
+        return {"error": "Missing device_id in request"}
+    
+    result = process_testing_data(device_id)
     return result
 
-
 @app.post("/trigger-production")
-def trigger_production():
-    result = process_production_data()
+async def trigger_production(request: Request):
+    body = await request.json()
+    device_id = body.get("device_id")
+    if not device_id:
+        return {"error": "Missing device_id in request"}
+    
+    result = process_production_data(device_id)
     return result
 
 #----------------------------------

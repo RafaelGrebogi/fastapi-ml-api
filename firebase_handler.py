@@ -44,7 +44,7 @@ async def process_training_data(device_id: str):
             firebase_control_path=CONTROL_PATH,
             local_dir=TRAINING_DATA_DIR,
             archive_dir=ARCHIVE_PATH,
-            EXPECTED_DEVICE_ID=device_id  # ✅ new parameter
+            EXPECTED_DEVICE_ID=device_id  # new parameter
         )
 
         csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
@@ -68,39 +68,77 @@ async def process_training_data(device_id: str):
 
 # ===========================================
 # ===========================================
-def process_testing_data():
+def process_testing_data(device_id: str):
     print(" Triggered: Testing Mode")
 
-    # Download JSON from Firebase (same logic as training)
-    data, _ = download_data_if_complete(FIREBASE_TESTING_PATH, CONTROL_PATH, TESTING_DATA_DIR, ARCHIVE_PATH)
-
-    # Extract features for ML method
-    # Extract features from each batch
+    data, _ = download_data_if_complete(
+        FIREBASE_TESTING_PATH,
+        CONTROL_PATH,
+        TESTING_DATA_DIR,
+        ARCHIVE_PATH,
+        device_id
+    )
 
     csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
-
-    # Run testing pipeline
     result = run_ml_pipeline("testing", csv_path)
-
     return result
 
 # ===========================================
 # ===========================================
-def process_production_data():
+def process_production_data(device_id: str):
     print(" Triggered: Production Mode")
 
-    # Download JSON from Firebase
-    data, _ = download_data_if_complete(FIREBASE_PRODUCTION_PATH, CONTROL_PATH, PRODUCTION_DATA_DIR, ARCHIVE_PATH)
-
-    # Extract features for ML method
-    # Extract features from each batch
+    data, _ = download_data_if_complete(
+        FIREBASE_PRODUCTION_PATH,
+        CONTROL_PATH,
+        PRODUCTION_DATA_DIR,
+        ARCHIVE_PATH,
+        device_id
+    )
 
     csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
-
-    # Run prediction pipeline
     result = run_ml_pipeline("production", csv_path)
-
     return result
+
+# ===========================================
+# ===========================================
+
+
+
+
+# def process_testing_data():
+#     print(" Triggered: Testing Mode")
+
+#     # Download JSON from Firebase (same logic as training)
+#     data, _ = download_data_if_complete(FIREBASE_TESTING_PATH, CONTROL_PATH, TESTING_DATA_DIR, ARCHIVE_PATH)
+
+#     # Extract features for ML method
+#     # Extract features from each batch
+
+#     csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
+
+#     # Run testing pipeline
+#     result = run_ml_pipeline("testing", csv_path)
+
+#     return result
+
+# # ===========================================
+# # ===========================================
+# def process_production_data():
+#     print(" Triggered: Production Mode")
+
+#     # Download JSON from Firebase
+#     data, _ = download_data_if_complete(FIREBASE_PRODUCTION_PATH, CONTROL_PATH, PRODUCTION_DATA_DIR, ARCHIVE_PATH)
+
+#     # Extract features for ML method
+#     # Extract features from each batch
+
+#     csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
+
+#     # Run prediction pipeline
+#     result = run_ml_pipeline("production", csv_path)
+
+#     return result
 
 # ===========================================
 # ===========================================
