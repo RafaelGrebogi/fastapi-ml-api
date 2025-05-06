@@ -156,7 +156,8 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
     # Delay to ensure ESP32 has finished uploading
     time.sleep(2)
 
-    control_ref = db.reference(firebase_control_path)
+    # control_ref = db.reference(firebase_control_path)
+    control_ref = db.reference(f"{firebase_control_path}{EXPECTED_DEVICE_ID}")
     control_data = control_ref.get()
 
     if not control_data or control_data.get("complete") != True:
@@ -182,7 +183,7 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
 
     # Archive only matching data
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    archive_ref = db.reference(f"{archive_dir}/{timestamp}")
+    archive_ref = db.reference(f"{archive_dir}/{EXPECTED_DEVICE_ID}/{timestamp}")
     archive_ref.set(matching_data)
     print(" Matching data archived in Firebase.")
 

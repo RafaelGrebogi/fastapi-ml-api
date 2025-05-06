@@ -2,13 +2,13 @@ import pandas as pd
 import glob
 import os
 
-def merge_feature_csvs(input_dir="data/features", output_file="data/training/training_dataset.csv"):
+def merge_feature_csvs(input_dir="data/features", output_file="data/datasets/training_dataset.csv"):
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
     # Get new CSVs from feature folder
     csv_files = glob.glob(os.path.join(input_dir, "*.csv"))
     if not csv_files:
-        print("⚠️ No feature CSV files found.")
+        print(" No feature CSV files found.")
         return False
 
     new_data = pd.concat([pd.read_csv(f) for f in csv_files], ignore_index=True)
