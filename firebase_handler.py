@@ -16,7 +16,7 @@ if not firebase_admin._apps:
     })
 
 # Paths
-CONTROL_PATH = "/ControlFlag/"
+CONTROL_PATH = "/ESP32_Develop/ControlFlag/"
 DATA_PATH = "/ESP32_Develop/TrainingDataset/"
 ARCHIVE_PATH = "/ESP32_Develop/TrainingArchive/"
 TRAINING_DATA_DIR = "data/training/"
@@ -27,7 +27,9 @@ FIREBASE_TESTING_PATH = "/ESP32_Develop/TestingDataset/"
 
 PRODUCTION_DATA_DIR = "data/production/"
 PRODUCTION_CSV_PATH = "data/production/production_features.csv"
-FIREBASE_PRODUCTION_PATH = "/ESP32_Develop/Data/"
+FIREBASE_PRODUCTION_PATH = "/ESP32_Production/Data/"
+PRODUCTION_CONTROL_PATH = "/ESP32_Production/ControlFlag/"
+PRODUCTION_ARCHIVE_PATH = "/ESP32_Production/Archive/"
 
 # Ensure folder exists
 os.makedirs(TRAINING_DATA_DIR, exist_ok=True)
@@ -91,9 +93,9 @@ def process_production_data(device_id: str):
 
     data, _ = download_data_if_complete(
         FIREBASE_PRODUCTION_PATH,
-        CONTROL_PATH,
+        PRODUCTION_CONTROL_PATH,
         PRODUCTION_DATA_DIR,
-        ARCHIVE_PATH,
+        PRODUCTION_ARCHIVE_PATH,
         device_id
     )
 
