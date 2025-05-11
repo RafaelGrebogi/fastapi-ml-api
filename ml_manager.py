@@ -74,6 +74,8 @@ def test_model(df: pd.DataFrame) -> dict:
         y_pred = tf_predict_samples(X.values)
 
         report = classification_report(y_encoded, y_pred, output_dict=True)
+        # Calculate correct predictions
+        corrects = (y_encoded == y_pred).tolist()
     else:
         print(" Testing RandomForest model...")
         if not MODEL_PATH.exists():
@@ -81,15 +83,20 @@ def test_model(df: pd.DataFrame) -> dict:
         model = joblib.load(MODEL_PATH)
         y_pred = model.predict(X)
         report = classification_report(y_true, y_pred, output_dict=True)
+        # Calculate correct predictions
+        corrects = (y_pred == y_true).tolist()
 
     results_path = RESULTS_DIR / "test_results.json"
+
+
     with open(results_path, "w") as f:
         json.dump({
             "metrics": report,
             "predictions": y_pred.tolist(),
-            "targets": y_true.tolist()
+            "targets": y_true.tolist(),
+            "corrects": corrects
         }, f, indent=2)
-
+    print(" Testing completed!")
     return {
         "status": "testing complete",
         "results_file": str(results_path),
