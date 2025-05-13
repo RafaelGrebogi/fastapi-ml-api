@@ -22,41 +22,174 @@ def run_ml_pipeline(mode: str, data_path: str) -> dict:
     df = pd.read_csv(data_path)
 
     if mode == "training":
-        return train_model(df)
+        return train_model(df, data_path)
     elif mode == "testing":
-        return test_model(df)
+        return test_model(df, data_path)
     elif mode == "production":
-        return predict_model(df)
+        return predict_model(df, data_path)
     else:
         raise ValueError(f"Unknown mode: {mode}")
 
 
 
-def train_model(df: pd.DataFrame) -> dict:
-    df = df.drop(columns=[col for col in df.columns if col in ("window_id", "msg_id")], errors="ignore")
+def train_model(df: pd.DataFrame, data_path: str) -> dict:
+    from datetime import datetime
 
+    df = df.drop(columns=[col for col in df.columns if col in ("window_id", "msg_id")], errors="ignore")
     X = df.drop(columns=["label"])
     y = df["label"]
+
+    # Get timestamp for versioning
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    # Archive directory structure
+    ARCHIVE_DIR = Path("model_archive") / timestamp
+    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Metadata preparation
+    metadata = {
+        "timestamp": timestamp,
+        "training_file": data_path,
+        "samples": len(X)
+    }
 
     if USE_TENSORFLOW:
         from tensorflow_handler import train_model as tf_train_model
         print(" Training TensorFlow model...")
         y_encoded = encode_labels(y)
-        tf_train_model(X.values, y_encoded, epochs=25)
+
+        # Train TensorFlow model
+        model = tf_train_model(X.values, y_encoded, epochs=25)
+
+        # Save the active model
+        active_model_path = Path("models/model.keras")
+        model.save(active_model_path)
+
+        # Save the archived model with timestamp
+        archive_model_path = ARCHIVE_DIR / f"model_{timestamp}.keras"
+        model.save(archive_model_path)
+
+        # Update metadata
+        metadata.update({
+            "method": "TensorFlow",
+            "model_path": str(archive_model_path)
+        })
+
+        # Save metadata
+        metadata_path = ARCHIVE_DIR / "metadata.json"
+        with open(metadata_path, "w") as f:
+            json.dump(metadata, f, indent=2)
+
+        print(f" TensorFlow model archive created at: {ARCHIVE_DIR}")
+
         return {
             "status": "TensorFlow training complete",
+            "model_path": str(active_model_path),
+            "archive_path": str(archive_model_path),
             "samples": len(X),
         }
+
     else:
         print(" Training RandomForest model...")
         model = RandomForestClassifier()
         model.fit(X, y)
+
+        # Save the active model
         joblib.dump(model, MODEL_PATH)
+
+        # Save the archived model with timestamp
+        archive_model_path = ARCHIVE_DIR / f"model_{timestamp}.pkl"
+        joblib.dump(model, archive_model_path)
+
+        # Update metadata
+        metadata.update({
+            "method": "RandomForest",
+            "model_path": str(archive_model_path)
+        })
+
+        # Save metadata
+        metadata_path = ARCHIVE_DIR / "metadata.json"
+        with open(metadata_path, "w") as f:
+            json.dump(metadata, f, indent=2)
+
+        print(f" RandomForest model archive created at: {ARCHIVE_DIR}")
+
         return {
             "status": "RandomForest training complete",
             "model_path": str(MODEL_PATH),
+            "archive_path": str(archive_model_path),
             "samples": len(X),
         }
+
+
+
+# def train_model(df: pd.DataFrame, data_path: str) -> dict:
+#     from datetime import datetime
+
+#     df = df.drop(columns=[col for col in df.columns if col in ("window_id", "msg_id")], errors="ignore")
+#     X = df.drop(columns=["label"])
+#     y = df["label"]
+
+#     # Get timestamp for versioning
+#     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+#     # Archive directory structure
+#     ARCHIVE_DIR = Path("model_archive") / timestamp
+#     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+
+#     # Metadata preparation
+#     metadata = {
+#         "timestamp": timestamp,
+#         "method": "RandomForest" if not USE_TENSORFLOW else "TensorFlow",
+#         "training_file": data_path
+#     }
+
+#     if USE_TENSORFLOW:
+#         from tensorflow_handler import train_model as tf_train_model
+#         print(" Training TensorFlow model...")
+#         y_encoded = encode_labels(y)
+#         tf_train_model(X.values, y_encoded, epochs=25)
+
+#         # Save metadata for TensorFlow
+#         metadata_path = ARCHIVE_DIR / "metadata.json"
+#         with open(metadata_path, "w") as f:
+#             json.dump(metadata, f, indent=2)
+#         print(f" Model archive created at: {ARCHIVE_DIR}")
+
+#         return {
+#             "status": "TensorFlow training complete",
+#             "samples": len(X),
+#         }
+
+#     else:
+#         print(" Training RandomForest model...")
+#         model = RandomForestClassifier()
+#         model.fit(X, y)
+
+#         # Save the current model as model.pkl
+#         joblib.dump(model, MODEL_PATH)
+
+#         # Save the archived model with timestamp
+#         archive_model_path = ARCHIVE_DIR / f"model_{timestamp}.pkl"
+#         joblib.dump(model, archive_model_path)
+
+#         # Save metadata for RandomForest
+#         metadata_path = ARCHIVE_DIR / "metadata.json"
+#         metadata["model_path"] = str(archive_model_path)
+
+#         with open(metadata_path, "w") as f:
+#             json.dump(metadata, f, indent=2)
+
+#         print(f" Model archive created at: {ARCHIVE_DIR}")
+
+#         return {
+#             "status": "RandomForest training complete",
+#             "model_path": str(MODEL_PATH),
+#             "archive_path": str(archive_model_path),
+#             "samples": len(X),
+#         }
+
+
 
 
 

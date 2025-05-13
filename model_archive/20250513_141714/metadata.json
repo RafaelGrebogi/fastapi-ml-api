@@ -1,0 +1,7 @@
+{
+  "timestamp": "20250513_141714",
+  "training_file": "data/features/C85D60BD9E7C_session2_20250513_141713.csv",
+  "samples": 9,
+  "method": "TensorFlow",
+  "model_path": "model_archive/20250513_141714/model_20250513_141714.keras"
+}
