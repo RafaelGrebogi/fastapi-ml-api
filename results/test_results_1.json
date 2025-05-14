@@ -1,0 +1,77 @@
+{
+  "metrics": {
+    "Limping": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 8.0
+    },
+    "Normal Walk": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 6.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 14.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 14.0
+    }
+  },
+  "predictions": [
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping"
+  ],
+  "targets": [
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping"
+  ],
+  "corrects": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ]
+}
