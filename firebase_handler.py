@@ -107,7 +107,7 @@ def process_production_data(device_id: str):
         device_id
     )
 
-    csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
+    _, csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
     result = run_ml_pipeline("production", csv_path)
     return result
 

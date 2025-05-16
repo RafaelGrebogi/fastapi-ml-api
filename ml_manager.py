@@ -173,23 +173,27 @@ def test_model(df: pd.DataFrame) -> dict:
 
 
 def predict_model(df: pd.DataFrame) -> dict:
+    df = df.drop(columns=[col for col in df.columns if col in ("window_id", "msg_id")], errors="ignore")
+
+    X = df.drop(columns=["label"])
+
     if USE_TENSORFLOW:
         from tensorflow_handler import predict_samples as tf_predict_samples
         print(" Predicting with TensorFlow model...")
-        y_pred = tf_predict_samples(df.values)
+        y_pred = tf_predict_samples(X.values)
     else:
         print(" Predicting with RandomForest model...")
         if not MODEL_PATH.exists():
             return {"error": "Model not found. Please train first."}
         model = joblib.load(MODEL_PATH)
-        y_pred = model.predict(df)
+        y_pred = model.predict(X)
 
     results_path = RESULTS_DIR / "predictions.json"
     with open(results_path, "w") as f:
         json.dump({
             "predictions": y_pred.tolist()
         }, f, indent=2)
-
+    print(" Prediction completed!")
     return {
         "status": "prediction complete",
         "results_file": str(results_path),

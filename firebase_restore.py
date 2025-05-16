@@ -19,6 +19,11 @@ TRAINING_ARCHIVE_PATH = "/ESP32_Develop/TrainingArchive/"
 
 FIREBASE_TESTING_PATH = "/ESP32_Develop/TestingDataset/"
 
+
+PRODUCTION_CONTROL_PATH = "/ESP32_Production/ControlFlag/"
+PRODUCTION_DATA_PATH = "/ESP32_Production/Data/"
+PRODUCTION_ARCHIVE_PATH = "/ESP32_Production/Archive/"
+
 def list_archives(archive_base_path: str):
     """
     List all available archives under a given base path.
@@ -93,7 +98,7 @@ def unarchive_data_from_firebase(archive_path: str, restore_path: str, del_Archi
 
 def main():
     # List available archives
-    archive_list = list_archives(TRAINING_ARCHIVE_PATH)
+    archive_list = list_archives(PRODUCTION_ARCHIVE_PATH)
 
     if not archive_list:
         print("❌ No archives available to restore.")
@@ -107,7 +112,7 @@ def main():
     del_Archive = input("Delete archive after restoring? (yes/no): ").strip().lower() == "yes"
 
     # Attempt to restore the latest archive
-    if unarchive_data_from_firebase(latest_archive, FIREBASE_TESTING_PATH, del_Archive):
+    if unarchive_data_from_firebase(latest_archive, PRODUCTION_DATA_PATH, del_Archive):
         print("✅ Data successfully restored.")
     else:
         print("❌ Failed to restore data.")
