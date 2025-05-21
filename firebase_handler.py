@@ -16,7 +16,7 @@ if not firebase_admin._apps:
     })
 
 # Paths
-CONTROL_PATH = "/ControlFlag/"
+CONTROL_PATH = "/ESP32_Develop/ControlFlag/"
 DATA_PATH = "/ESP32_Develop/TrainingDataset/"
 ARCHIVE_PATH = "/ESP32_Develop/TrainingArchive/"
 TRAINING_DATA_DIR = "data/training/"
@@ -24,10 +24,13 @@ TRAINING_DATA_DIR = "data/training/"
 TESTING_DATA_DIR = "data/testing/"
 TESTING_CSV_PATH = "data/testing/testing_features.csv"
 FIREBASE_TESTING_PATH = "/ESP32_Develop/TestingDataset/"
+TESTING_ARCHIVE_PATH = "/ESP32_Develop/TrainingArchive/"
 
 PRODUCTION_DATA_DIR = "data/production/"
 PRODUCTION_CSV_PATH = "data/production/production_features.csv"
-FIREBASE_PRODUCTION_PATH = "/ESP32_Develop/Data/"
+FIREBASE_PRODUCTION_PATH = "/ESP32_Production/Data/"
+PRODUCTION_CONTROL_PATH = "/ESP32_Production/ControlFlag/"
+PRODUCTION_ARCHIVE_PATH = "/ESP32_Production/Archive/"
 
 # Ensure folder exists
 os.makedirs(TRAINING_DATA_DIR, exist_ok=True)
@@ -48,11 +51,14 @@ async def process_training_data(device_id: str):
             EXPECTED_DEVICE_ID=device_id  # new parameter
         )
 
-        csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
+        success, csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
 
-        # Run training ML pipeline
-        ml_result = run_ml_pipeline("training", csv_path)
-        print("✅ ML Pipeline Result:", ml_result)
+        if success:
+            # Run training ML pipeline only if extraction succeeded
+            ml_result = run_ml_pipeline("training", csv_path)
+            print("✅ ML Pipeline Result:", ml_result)
+        else:
+            print("❌ Feature extraction failed.")
 
         # Clean up original data and control flag
         data_ref.delete()
@@ -76,12 +82,16 @@ def process_testing_data(device_id: str):
         FIREBASE_TESTING_PATH,
         CONTROL_PATH,
         TESTING_DATA_DIR,
-        ARCHIVE_PATH,
+        TESTING_ARCHIVE_PATH,
         device_id
     )
 
-    csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
+    _, csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
+
+
     result = run_ml_pipeline("testing", csv_path)
+
+
     return result
 
 # ===========================================
@@ -91,9 +101,9 @@ def process_production_data(device_id: str):
 
     data, _ = download_data_if_complete(
         FIREBASE_PRODUCTION_PATH,
-        CONTROL_PATH,
+        PRODUCTION_CONTROL_PATH,
         PRODUCTION_DATA_DIR,
-        ARCHIVE_PATH,
+        PRODUCTION_ARCHIVE_PATH,
         device_id
     )
 
@@ -202,3 +212,8 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
         print(" All data processed and deleted from Firebase.")
 
     return matching_data, data_ref
+
+
+# ===========================================
+# ===========================================
+
