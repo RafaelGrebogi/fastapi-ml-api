@@ -38,6 +38,7 @@ os.makedirs(PRODUCTION_DATA_DIR, exist_ok=True)
 
 # ===========================================
 # ===========================================
+
 async def process_training_data(device_id: str):
     try:
         data, data_ref = download_data_if_complete(
@@ -45,10 +46,44 @@ async def process_training_data(device_id: str):
             firebase_control_path=CONTROL_PATH,
             local_dir=TRAINING_DATA_DIR,
             archive_dir=ARCHIVE_PATH,
-            EXPECTED_DEVICE_ID=device_id  # new parameter
+            EXPECTED_DEVICE_ID=device_id  #  new parameter
         )
 
+        # # Small precaution delay in case ESP32 is still writing
+        # await asyncio.sleep(2)
+
+        # control_ref = db.reference(CONTROL_PATH)
+        # control_data = control_ref.get()
+
+        # if not control_data or control_data.get("complete") != True:
+        #     print("❌ Trigger received, but 'complete' flag not set. Aborting.")
+        #     return False
+
+        # # Get dataset
+        # data_ref = db.reference(DATA_PATH)
+        # data = data_ref.get()
+
+        # if not data:
+        #     print("❌ No training data found.")
+        #     return False
+
+        # # Save locally
+        # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        # filename = f"data/training/training_data_{timestamp}.json"
+        # with open(filename, "w") as f:
+        #     json.dump(data, f, indent=4)
+        # print(f"💾 Training data saved to: {filename}")
+
+        # # Archive in Firebase
+        # archive_ref = db.reference(f"{ARCHIVE_PATH}/{timestamp}")
+        # archive_ref.set(data)
+        # print("📦 Data archived in Firebase.")
+
+        # Extract features for ML method
+        # Extract features from each batch individually
+
         csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
+
 
         # Run training ML pipeline
         ml_result = run_ml_pipeline("training", csv_path)
@@ -104,6 +139,8 @@ def process_production_data(device_id: str):
 # ===========================================
 # ===========================================
 
+# def download_data_if_complete(firebase_data_path: str, firebase_control_path: str, local_dir: str, archive_dir: str) -> str:
+
 def get_local_ip():
     """Return the fixed Windows IP address."""
     local_ip = "192.168.20.5"
@@ -145,10 +182,13 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
     """
     Checks the 'complete' flag in Firebase, downloads the dataset if ready,
     saves it locally, archives it, and deletes it from the original path.
+
     """
     import time
     # from datetime import datetime
     from pathlib import Path
+
+    
 
     # Delay to ensure ESP32 has finished uploading
     time.sleep(2)
@@ -161,7 +201,7 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
         print("❌ Trigger received, but 'complete' flag not set. Aborting.")
         raise RuntimeError("Control flag not set to 'complete'.")
 
-    # Download data
+    # Download full data
     data_ref = db.reference(firebase_data_path)
     data = data_ref.get()
 
@@ -180,9 +220,11 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
 
     # Archive only matching data
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
     archive_ref = db.reference(f"{archive_dir}/{EXPECTED_DEVICE_ID}/{timestamp}")
     archive_ref.set(matching_data)
     print(" Matching data archived in Firebase.")
+
 
     # Save matching data locally
     filename = f"data_{timestamp}.json"
@@ -191,14 +233,18 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
 
     with open(save_path, "w") as f:
         json.dump(matching_data, f, indent=2)
+
     print(f" Matching Firebase data saved to: {save_path}")
+
 
     # Replace original path with unmatched entries (or clear it)
     if unmatched_data:
         data_ref.set(unmatched_data)
+
         print(" Unmatched data restored to Firebase.")
     else:
         data_ref.delete()
         print(" All data processed and deleted from Firebase.")
 
     return matching_data, data_ref
+
