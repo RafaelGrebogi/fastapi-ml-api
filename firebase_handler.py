@@ -3,7 +3,8 @@ from firebase_admin import credentials, db
 import os
 import json
 from datetime import datetime
-import asyncio
+# import asyncio
+import socket
 from feature_extraction import extract_features_from_firebase_batch
 from ml_manager import run_ml_pipeline
 
@@ -37,10 +38,7 @@ os.makedirs(PRODUCTION_DATA_DIR, exist_ok=True)
 
 # ===========================================
 # ===========================================
-# async def process_training_data():
-#     try:
 
-#         data, data_ref = download_data_if_complete(DATA_PATH, CONTROL_PATH, TRAINING_DATA_DIR, ARCHIVE_PATH)
 async def process_training_data(device_id: str):
     try:
         data, data_ref = download_data_if_complete(
@@ -83,12 +81,9 @@ async def process_training_data(device_id: str):
 
         # Extract features for ML method
         # Extract features from each batch individually
-        for msg_id, record in data.items():
-            if not msg_id:
-                print(f"⚠️ Skipping unnamed record")
-                continue
 
-            csv_path = extract_features_from_firebase_batch({msg_id: record}, USE_MULTI_MESSAGE_WINDOW=True)
+        csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
+
 
         # Run training ML pipeline
         ml_result = run_ml_pipeline("training", csv_path)
@@ -109,59 +104,88 @@ async def process_training_data(device_id: str):
 
 # ===========================================
 # ===========================================
-def process_testing_data():
+def process_testing_data(device_id: str):
     print(" Triggered: Testing Mode")
 
-    # Download JSON from Firebase (same logic as training)
-    data, _ = download_data_if_complete(FIREBASE_TESTING_PATH, CONTROL_PATH, TESTING_DATA_DIR, ARCHIVE_PATH)
+    data, _ = download_data_if_complete(
+        FIREBASE_TESTING_PATH,
+        CONTROL_PATH,
+        TESTING_DATA_DIR,
+        ARCHIVE_PATH,
+        device_id
+    )
 
-    # Extract features for ML method
-    # Extract features from each batch individually
-    for msg_id, record in data.items():
-        if not msg_id:
-            print(f"⚠️ Skipping unnamed record")
-            continue
-
-        csv_path = extract_features_from_firebase_batch({msg_id: record}, USE_MULTI_MESSAGE_WINDOW=True)
-
-    # Run testing pipeline
+    csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
     result = run_ml_pipeline("testing", csv_path)
-
     return result
 
 # ===========================================
 # ===========================================
-def process_production_data():
+def process_production_data(device_id: str):
     print(" Triggered: Production Mode")
 
-    # Download JSON from Firebase
-    data, _ = download_data_if_complete(FIREBASE_PRODUCTION_PATH, CONTROL_PATH, PRODUCTION_DATA_DIR, ARCHIVE_PATH)
+    data, _ = download_data_if_complete(
+        FIREBASE_PRODUCTION_PATH,
+        CONTROL_PATH,
+        PRODUCTION_DATA_DIR,
+        ARCHIVE_PATH,
+        device_id
+    )
 
-    # Extract features for ML method
-    # Extract features from each batch individually
-    for msg_id, record in data.items():
-        if not msg_id:
-            print(f"⚠️ Skipping unnamed record")
-            continue
-
-        csv_path = extract_features_from_firebase_batch({msg_id: record}, USE_MULTI_MESSAGE_WINDOW=True)
-
-    # Run prediction pipeline
+    csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
     result = run_ml_pipeline("production", csv_path)
-
     return result
 
 # ===========================================
 # ===========================================
+
 # def download_data_if_complete(firebase_data_path: str, firebase_control_path: str, local_dir: str, archive_dir: str) -> str:
-def download_data_if_complete(firebase_data_path, firebase_control_path, local_dir, archive_dir, EXPECTED_DEVICE_ID)-> str:
+
+def get_local_ip():
+    """Return the fixed Windows IP address."""
+    local_ip = "192.168.20.5"
+    print(f"🔧 Using hard-coded Windows IP: {local_ip}")
+    return local_ip
+
+# def get_local_ip():
+#     """Get the actual local IP address."""
+#     try:
+#         # Create a socket to an external address to determine the local IP
+#         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#         # Connect to a public DNS server (Google's)
+#         s.connect(("8.8.8.8", 80))
+#         local_ip = s.getsockname()[0]
+#         s.close()
+#         return local_ip
+#     except Exception as e:
+#         print(f"❌ Failed to get local IP: {e}")
+#         return None
+
+def update_server_ip():
+    """Update the server IP address in Firebase."""
+    local_ip = get_local_ip()
+    if local_ip:
+        try:
+            ref = db.reference("/ServerIP")
+            ref.set(local_ip)
+            print(f"✅ Updated FastAPI server IP to: {local_ip}")
+        except Exception as e:
+            print(f"❌ Failed to update IP in Firebase: {e}")
+    else:
+        print("⚠️ No local IP obtained. Skipping Firebase update.")
+
+# ===========================================
+# ===========================================
+
+
+def download_data_if_complete(firebase_data_path, firebase_control_path, local_dir, archive_dir, EXPECTED_DEVICE_ID)-> tuple:
     """
     Checks the 'complete' flag in Firebase, downloads the dataset if ready,
-    saves only matching device_id entries locally, archives them, and
-    restores unmatched entries to the original path.
+    saves it locally, archives it, and deletes it from the original path.
+
     """
     import time
-    from datetime import datetime
+    # from datetime import datetime
     from pathlib import Path
 
     
@@ -169,7 +193,8 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
     # Delay to ensure ESP32 has finished uploading
     time.sleep(2)
 
-    control_ref = db.reference(firebase_control_path)
+    # control_ref = db.reference(firebase_control_path)
+    control_ref = db.reference(f"{firebase_control_path}{EXPECTED_DEVICE_ID}")
     control_data = control_ref.get()
 
     if not control_data or control_data.get("complete") != True:
@@ -195,9 +220,11 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
 
     # Archive only matching data
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    archive_ref = db.reference(f"{archive_dir}/{timestamp}")
+
+    archive_ref = db.reference(f"{archive_dir}/{EXPECTED_DEVICE_ID}/{timestamp}")
     archive_ref.set(matching_data)
-    print("📦 Matching data archived in Firebase.")
+    print(" Matching data archived in Firebase.")
+
 
     # Save matching data locally
     filename = f"data_{timestamp}.json"
@@ -206,14 +233,18 @@ def download_data_if_complete(firebase_data_path, firebase_control_path, local_d
 
     with open(save_path, "w") as f:
         json.dump(matching_data, f, indent=2)
-    print(f"💾 Matching Firebase data saved to: {save_path}")
+
+    print(f" Matching Firebase data saved to: {save_path}")
+
 
     # Replace original path with unmatched entries (or clear it)
     if unmatched_data:
         data_ref.set(unmatched_data)
-        print("🔁 Unmatched data restored to Firebase.")
+
+        print(" Unmatched data restored to Firebase.")
     else:
         data_ref.delete()
-        print("🧹 All data processed and deleted from Firebase.")
+        print(" All data processed and deleted from Firebase.")
 
     return matching_data, data_ref
+
