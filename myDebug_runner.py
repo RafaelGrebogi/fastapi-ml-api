@@ -6,7 +6,7 @@ from ml_manager import run_ml_pipeline
 
 
 # Choose which module to test/debug
-test_opt = "testing"
+test_opt = "training"
 
 # Simulated batch data as if received from Firebase
 data_opt = "multi"
@@ -138,13 +138,25 @@ elif data_opt == "multi":
         if test_opt == "training":
             with open("/mnt/c/Users/rafag/ml-api/data/esp32-v1_TrainData.json", "r") as f:
                 all_data = json.load(f)
+                # Navigate into the nested 'TrainingDataset' branch
+                training_data = all_data.get("ESP32_Develop", {}).get("TrainingDataset", {})  
         elif test_opt == "testing":
             with open("/mnt/c/Users/rafag/ml-api/data/esp32-v1_TestData.json", "r") as f:
                 all_data = json.load(f)
+                # Navigate into the nested 'TrainingDataset' branch
+                training_data = all_data.get("ESP32_Develop", {}).get("TrainingDataset", {}) 
+                # training_data = all_data.get("ESP32_Develop", {}).get("TestingDataset", {}) 
+        elif test_opt == "production":
+            with open("/mnt/c/Users/rafag/ml-api/data/esp32-v1_TestData.json", "r") as f:
+                all_data = json.load(f)
+                # Navigate into the nested 'TrainingDataset' branch
+                training_data = all_data.get("ESP32_Develop", {}).get("TrainingDataset", {}) # FIX FIREBASE PATH
         else:
             with open("/mnt/c/Users/rafag/ml-api/data/esp32-rtdb-ML_TestData.json", "r") as f:
             # with open("/mnt/c/Users/rafag/ml-api/data/esp32-rtdb-Testing.json", "r") as f:
               all_data = json.load(f)
+              # Navigate into the nested 'TrainingDataset' branch
+              training_data = all_data.get("ESP32_Develop", {}).get("TrainingDataset", {})
 
         
         # with open("/mnt/c/Users/rafag/ml-api/data/esp32-v1_TestData.json", "r") as f:
@@ -153,7 +165,7 @@ elif data_opt == "multi":
             # all_data = json.load(f)
 
         # Navigate into the nested 'TrainingDataset' branch
-        training_data = all_data.get("ESP32_Develop", {}).get("TrainingDataset", {})
+        # training_data = all_data.get("ESP32_Develop", {}).get("TrainingDataset", {})
 
         # Filter for messages with exactly 'nSamples' samples
         test_data = {
