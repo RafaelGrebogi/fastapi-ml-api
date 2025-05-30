@@ -24,7 +24,8 @@ DB_USER = os.getenv("SUPABASE_DB_USER")
 DB_PASSWORD = os.getenv("SUPABASE_DB_PASSWORD")
 
 
-
+# Global variable for connection pool
+# db_pool = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -53,18 +54,37 @@ async def get_connection():
         database=DB_NAME
     )
 
-@app.get("/get-user-id")
-async def get_user_id(username: str = Query(...)):
+@app.get("/get-user-status")
+async def get_user_status(
+    username: str = Query(...),
+    device_id: str = Query(...)
+):
     conn = await get_connection()
     try:
-        user = await conn.fetchrow('SELECT id FROM users WHERE "Name" = $1', username)
-        if user:
-            return {"user_id": str(user["id"])}
+        result = await conn.fetchrow("""                             
+            SELECT 
+                users.id,
+                EXISTS (
+                    SELECT 1
+                    FROM service
+                    JOIN device ON service.device_id = device.id
+                    WHERE service.users_id = users.id
+                    AND device.serial_number = $2
+                    AND CURRENT_DATE BETWEEN service.start_date AND service.end_date
+                ) AS has_active_service
+                FROM users
+                WHERE username = $1;
+        """, username, device_id)
+
+        if result:
+            return {
+                "user_id": str(result["id"]),
+                "has_active_service": result["has_active_service"]
+            }
         else:
             return {"error": "User not found"}
     finally:
         await conn.close()
-
 
 # -------------------------------------
 # -------------------------------------
