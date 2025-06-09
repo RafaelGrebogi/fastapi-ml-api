@@ -97,8 +97,8 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 async def get_user_status(username: str = Query(...), device_id: str = Query(...)):
     try:
         # 1. Get user
-        user_data = supabase.table("users").select("id").eq("username", username).execute()
-        if not user_data.data:
+        user_data = supabase.table("users").select("id, is_active").eq("username", username).execute()
+        if not user_data.data or not user_data.data[0]["is_active"]:
             return {"error": "User not found"}
 
         user_id = user_data.data[0]["id"]
