@@ -10,6 +10,9 @@ from dotenv import load_dotenv
 import os
 
 from supabase import create_client, Client
+from utils.auth import is_admin_user
+
+
 
 load_dotenv()  # Load environment variables from .env
 
@@ -102,55 +105,103 @@ async def get_user_status(username: str = Query(...), device_id: str = Query(...
             return {"error": "User not found"}
 
         user_id = user_data.data[0]["id"]
-        today = str(date.today())  # e.g., '2025-05-30'
+        today = str(date.today())  # e.g., '2025-06-04'
 
-        # 2. Check service matching user AND active dates
+        # 2. Get all services linked to user with JOIN to company
         service_data = (
             supabase.table("service")
-            .select("id, device_id")
+            .select("id, device_id, start_date, end_date, task_id, ml_method_id, company_id, company(name)")
             .eq("users_id", user_id)
-            .lte("start_date", today)
-            .gte("end_date", today)
             .execute()
         )
 
-        # 3. Match device
+        # 3. Check for active service linked to the specified device
         active = False
+        matched_service_id = None
         if service_data.data:
             device_data = supabase.table("device").select("id").eq("serial_number", device_id).execute()
             if device_data.data:
                 device_ids = [d["id"] for d in device_data.data]
-                service_device_ids = [s["device_id"] for s in service_data.data]
-                active = any(d in service_device_ids for d in device_ids)
+                for s in service_data.data:
+                    if s["device_id"] in device_ids and s["start_date"] <= today <= s["end_date"]:
+                        active = True
+                        matched_service_id = s["id"]
+                        break
 
         return {
             "user_id": str(user_id),
-            "has_active_service": active
+            "has_active_service": active,
+            "selected_service_id": matched_service_id,
+            "services": service_data.data  # now includes company.name
         }
 
     except Exception as e:
         return {"error": str(e)}
 
+
+# @app.get("/get-user-status")
+# async def get_user_status(username: str = Query(...), device_id: str = Query(...)):
+#     try:
+#         # 1. Get user
+#         user_data = supabase.table("users").select("id, is_active").eq("username", username).execute()
+#         if not user_data.data or not user_data.data[0]["is_active"]:
+#             return {"error": "User not found"}
+
+#         user_id = user_data.data[0]["id"]
+#         today = str(date.today())  # e.g., '2025-05-30'
+
+#         # 2. Check service matching user AND active dates
+#         service_data = (
+#             supabase.table("service")
+#             .select("id, device_id")
+#             .eq("users_id", user_id)
+#             .lte("start_date", today)
+#             .gte("end_date", today)
+#             .execute()
+#         )
+
+#         # 3. Match device
+#         active = False
+#         if service_data.data:
+#             device_data = supabase.table("device").select("id").eq("serial_number", device_id).execute()
+#             if device_data.data:
+#                 device_ids = [d["id"] for d in device_data.data]
+#                 service_device_ids = [s["device_id"] for s in service_data.data]
+#                 active = any(d in service_device_ids for d in device_ids)
+
+#         return {
+#             "user_id": str(user_id),
+#             "has_active_service": active
+#         }
+
+#     except Exception as e:
+#         return {"error": str(e)}
+
 # -------------------------------------
 # -------------------------------------
-
-
-
 
 
 @app.post("/trigger-training")
-async def trigger_training(request: Request):
+async def trigger_training(request: Request, UserId: int = Query(...), ServiceId: int = Query(...)):
     data = await request.json()
     device_id = data.get("device_id")
 
     if not device_id:
         return {"error": "Missing device_id in request"}
 
+    # Get admin user
+    is_admin, message = is_admin_user(UserId, supabase)
+    if not is_admin:
+        return {"error": message}
+
     success = await process_training_data(device_id=device_id)
     if success:
         return {"status": "success", "message": "Training data processed successfully."}
     else:
         return {"status": "fail", "message": "Failed to process training data."}
+
+
+
 
 
 @app.post("/trigger-testing")
