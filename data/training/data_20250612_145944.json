@@ -1,0 +1,1626 @@
+{
+  "C85D60BD9E7C_20250612045905_2": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045905_2",
+    "samples": [
+      {
+        "accel_x": 1.677156,
+        "accel_y": -0.006865,
+        "accel_z": 9.584908,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      },
+      {
+        "accel_x": 1.679958,
+        "accel_y": -0.006833,
+        "accel_z": 9.58947,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      },
+      {
+        "accel_x": 1.683896,
+        "accel_y": -0.006897,
+        "accel_z": 9.579514,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      },
+      {
+        "accel_x": 1.686277,
+        "accel_y": 0.000286,
+        "accel_z": 9.579258,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      },
+      {
+        "accel_x": 1.692808,
+        "accel_y": 0.000237,
+        "accel_z": 9.571479,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      },
+      {
+        "accel_x": 1.688659,
+        "accel_y": 0.005074,
+        "accel_z": 9.579018,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      },
+      {
+        "accel_x": 1.689079,
+        "accel_y": -0.002077,
+        "accel_z": 9.583836,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      },
+      {
+        "accel_x": 1.69489,
+        "accel_y": -0.001996,
+        "accel_z": 9.595345,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      },
+      {
+        "accel_x": 1.689703,
+        "accel_y": -0.002028,
+        "accel_z": 9.590991,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      },
+      {
+        "accel_x": 1.684305,
+        "accel_y": 0.005106,
+        "accel_z": 9.584204,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:05Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:05Z"
+  },
+  "C85D60BD9E7C_20250612045906_3": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045906_3",
+    "samples": [
+      {
+        "accel_x": 1.681716,
+        "accel_y": -0.002093,
+        "accel_z": 9.582075,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.000586,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      },
+      {
+        "accel_x": 1.681094,
+        "accel_y": -0.006929,
+        "accel_z": 9.574951,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      },
+      {
+        "accel_x": 1.68151,
+        "accel_y": -0.006897,
+        "accel_z": 9.579721,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      },
+      {
+        "accel_x": 1.686489,
+        "accel_y": -0.006881,
+        "accel_z": 9.581691,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      },
+      {
+        "accel_x": 1.681508,
+        "accel_y": -0.002109,
+        "accel_z": 9.57969,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      },
+      {
+        "accel_x": 1.686487,
+        "accel_y": -0.004487,
+        "accel_z": 9.581675,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.000586,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      },
+      {
+        "accel_x": 1.679537,
+        "accel_y": 0.000318,
+        "accel_z": 9.584652,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      },
+      {
+        "accel_x": 1.679747,
+        "accel_y": -0.002061,
+        "accel_z": 9.587053,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      },
+      {
+        "accel_x": 1.677778,
+        "accel_y": -0.002028,
+        "accel_z": 9.592031,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      },
+      {
+        "accel_x": 1.68338,
+        "accel_y": -0.001964,
+        "accel_z": 9.601156,
+        "gyro_x": -0.000137,
+        "gyro_y": 0.000586,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:06Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:06Z"
+  },
+  "C85D60BD9E7C_20250612045907_4": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045907_4",
+    "samples": [
+      {
+        "accel_x": 1.69188,
+        "accel_y": -0.002044,
+        "accel_z": 9.588398,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.68275,
+        "accel_y": 0.007564,
+        "accel_z": 9.593936,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.687313,
+        "accel_y": 0.007548,
+        "accel_z": 9.591135,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.679952,
+        "accel_y": 0.002744,
+        "accel_z": 9.589406,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.682128,
+        "accel_y": 0.005122,
+        "accel_z": 9.586798,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000411,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.684514,
+        "accel_y": 0.002728,
+        "accel_z": 9.586605,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000411,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.689078,
+        "accel_y": 0.000318,
+        "accel_z": 9.583819,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.694056,
+        "accel_y": 0.000334,
+        "accel_z": 9.585789,
+        "gyro_x": -0.000137,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.696233,
+        "accel_y": 0.000318,
+        "accel_z": 9.583196,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.700797,
+        "accel_y": -0.002093,
+        "accel_z": 9.580411,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:07Z"
+  },
+  "C85D60BD9E7C_20250612045908_5": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045908_5",
+    "samples": [
+      {
+        "accel_x": 1.679742,
+        "accel_y": 0.005122,
+        "accel_z": 9.587006,
+        "gyro_x": -0.000137,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000411,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.674765,
+        "accel_y": 0.002712,
+        "accel_z": 9.585052,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.67736,
+        "accel_y": 0.000334,
+        "accel_z": 9.587245,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.682337,
+        "accel_y": 0.002744,
+        "accel_z": 9.589198,
+        "gyro_x": -0.000137,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.684933,
+        "accel_y": -0.002028,
+        "accel_z": 9.591408,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.68514,
+        "accel_y": 0.000382,
+        "accel_z": 9.593776,
+        "gyro_x": -0.000137,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.688871,
+        "accel_y": -0.002093,
+        "accel_z": 9.581451,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.686694,
+        "accel_y": -0.002077,
+        "accel_z": 9.584044,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.684725,
+        "accel_y": -0.002044,
+        "accel_z": 9.589022,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:07Z"
+      },
+      {
+        "accel_x": 1.679537,
+        "accel_y": 0.000318,
+        "accel_z": 9.584652,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:08Z"
+  },
+  "C85D60BD9E7C_20250612045908_6": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045908_6",
+    "samples": [
+      {
+        "accel_x": 1.682549,
+        "accel_y": -0.004423,
+        "accel_z": 9.591632,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      },
+      {
+        "accel_x": 1.684934,
+        "accel_y": -0.004423,
+        "accel_z": 9.591423,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      },
+      {
+        "accel_x": 1.68598,
+        "accel_y": -0.013919,
+        "accel_z": 9.603413,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      },
+      {
+        "accel_x": 1.691885,
+        "accel_y": -0.009227,
+        "accel_z": 9.588446,
+        "gyro_x": -0.000137,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      },
+      {
+        "accel_x": 1.689286,
+        "accel_y": 0.000334,
+        "accel_z": 9.586205,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      },
+      {
+        "accel_x": 1.686485,
+        "accel_y": 0.000302,
+        "accel_z": 9.581643,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      },
+      {
+        "accel_x": 1.678913,
+        "accel_y": 0.000269,
+        "accel_z": 9.577497,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      },
+      {
+        "accel_x": 1.676319,
+        "accel_y": 0.002648,
+        "accel_z": 9.575303,
+        "gyro_x": 0.000662,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      },
+      {
+        "accel_x": 1.683262,
+        "accel_y": 0.009814,
+        "accel_z": 9.572247,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      },
+      {
+        "accel_x": 1.685855,
+        "accel_y": 0.00983,
+        "accel_z": 9.574424,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:08Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:08Z"
+  },
+  "C85D60BD9E7C_20250612045909_7": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045909_7",
+    "samples": [
+      {
+        "accel_x": 1.681297,
+        "accel_y": 0.002664,
+        "accel_z": 9.577273,
+        "gyro_x": 0.000396,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      },
+      {
+        "accel_x": 1.6813,
+        "accel_y": -0.002125,
+        "accel_z": 9.577305,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      },
+      {
+        "accel_x": 1.686485,
+        "accel_y": 0.000302,
+        "accel_z": 9.581643,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      },
+      {
+        "accel_x": 1.686278,
+        "accel_y": -0.002109,
+        "accel_z": 9.579273,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      },
+      {
+        "accel_x": 1.686695,
+        "accel_y": -0.004471,
+        "accel_z": 9.58406,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      },
+      {
+        "accel_x": 1.689497,
+        "accel_y": -0.004439,
+        "accel_z": 9.588622,
+        "gyro_x": -0.000137,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      },
+      {
+        "accel_x": 1.689499,
+        "accel_y": -0.009227,
+        "accel_z": 9.588654,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      },
+      {
+        "accel_x": 1.684936,
+        "accel_y": -0.006817,
+        "accel_z": 9.591439,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      },
+      {
+        "accel_x": 1.679332,
+        "accel_y": -0.004487,
+        "accel_z": 9.582299,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      },
+      {
+        "accel_x": 1.681714,
+        "accel_y": 0.000302,
+        "accel_z": 9.582059,
+        "gyro_x": -0.000137,
+        "gyro_y": 0.000586,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:09Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:09Z"
+  },
+  "C85D60BD9E7C_20250612045910_8": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045910_8",
+    "samples": [
+      {
+        "accel_x": 1.691876,
+        "accel_y": 0.005138,
+        "accel_z": 9.58835,
+        "gyro_x": 0.002528,
+        "gyro_y": 0.003517,
+        "gyro_z": -0.000411,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      },
+      {
+        "accel_x": 1.680882,
+        "accel_y": 0.000237,
+        "accel_z": 9.572518,
+        "gyro_x": 0.002794,
+        "gyro_y": 0.00405,
+        "gyro_z": -0.000411,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      },
+      {
+        "accel_x": 1.678286,
+        "accel_y": 0.00501,
+        "accel_z": 9.57031,
+        "gyro_x": 0.003061,
+        "gyro_y": 0.003784,
+        "gyro_z": -0.000411,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      },
+      {
+        "accel_x": 1.669884,
+        "accel_y": 0.002519,
+        "accel_z": 9.556639,
+        "gyro_x": 0.002261,
+        "gyro_y": 0.003251,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      },
+      {
+        "accel_x": 1.67507,
+        "accel_y": 0.002551,
+        "accel_z": 9.560993,
+        "gyro_x": 0.001995,
+        "gyro_y": 0.002718,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      },
+      {
+        "accel_x": 1.677359,
+        "accel_y": 0.002728,
+        "accel_z": 9.58723,
+        "gyro_x": 0.001995,
+        "gyro_y": 0.002451,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      },
+      {
+        "accel_x": 1.674142,
+        "accel_y": 0.002664,
+        "accel_z": 9.577897,
+        "gyro_x": 0.001995,
+        "gyro_y": 0.002185,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      },
+      {
+        "accel_x": 1.674444,
+        "accel_y": 0.007291,
+        "accel_z": 9.553806,
+        "gyro_x": 0.001462,
+        "gyro_y": 0.001652,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      },
+      {
+        "accel_x": 1.673401,
+        "accel_y": 0.012,
+        "accel_z": 9.541848,
+        "gyro_x": 0.000662,
+        "gyro_y": 0.001119,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      },
+      {
+        "accel_x": 1.677242,
+        "accel_y": 0.012112,
+        "accel_z": 9.558336,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.000586,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:10Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:10Z"
+  },
+  "C85D60BD9E7C_20250612045911_9": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045911_9",
+    "samples": [
+      {
+        "accel_x": 1.674763,
+        "accel_y": 0.0075,
+        "accel_z": 9.58502,
+        "gyro_x": -0.000137,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.67757,
+        "accel_y": -0.002044,
+        "accel_z": 9.589646,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.680368,
+        "accel_y": 0.002776,
+        "accel_z": 9.594176,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.000586,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.674974,
+        "accel_y": 0.002728,
+        "accel_z": 9.587438,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.673005,
+        "accel_y": 0.00276,
+        "accel_z": 9.592416,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.676011,
+        "accel_y": 0.007596,
+        "accel_z": 9.599331,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.677775,
+        "accel_y": 0.00276,
+        "accel_z": 9.592,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.673005,
+        "accel_y": 0.00276,
+        "accel_z": 9.592416,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.675388,
+        "accel_y": 0.005154,
+        "accel_z": 9.592192,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.677775,
+        "accel_y": 0.00276,
+        "accel_z": 9.592,
+        "gyro_x": 0.000396,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:11Z"
+  },
+  "C85D60BD9E7C_20250612045912_10": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045912_10",
+    "samples": [
+      {
+        "accel_x": 1.67953,
+        "accel_y": 0.012288,
+        "accel_z": 9.584572,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.674552,
+        "accel_y": 0.012272,
+        "accel_z": 9.582603,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.675383,
+        "accel_y": 0.014731,
+        "accel_z": 9.592128,
+        "gyro_x": -0.000137,
+        "gyro_y": -0.00048,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.675592,
+        "accel_y": 0.012353,
+        "accel_z": 9.594528,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.673,
+        "accel_y": 0.009942,
+        "accel_z": 9.592368,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.667815,
+        "accel_y": 0.007516,
+        "accel_z": 9.58803,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.674971,
+        "accel_y": 0.007516,
+        "accel_z": 9.587405,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.674347,
+        "accel_y": 0.007468,
+        "accel_z": 9.58025,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.676316,
+        "accel_y": 0.007436,
+        "accel_z": 9.575272,
+        "gyro_x": 0.000396,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:11Z"
+      },
+      {
+        "accel_x": 1.674142,
+        "accel_y": 0.002664,
+        "accel_z": 9.577897,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:12Z"
+  },
+  "C85D60BD9E7C_20250612045912_11": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045912_11",
+    "samples": [
+      {
+        "accel_x": 1.684305,
+        "accel_y": 0.005106,
+        "accel_z": 9.584204,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      },
+      {
+        "accel_x": 1.680367,
+        "accel_y": 0.00517,
+        "accel_z": 9.59416,
+        "gyro_x": 0.000396,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      },
+      {
+        "accel_x": 1.667602,
+        "accel_y": 0.017077,
+        "accel_z": 9.58558,
+        "gyro_x": 0.000396,
+        "gyro_y": -0.000213,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      },
+      {
+        "accel_x": 1.671541,
+        "accel_y": 0.014618,
+        "accel_z": 9.57564,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      },
+      {
+        "accel_x": 1.671546,
+        "accel_y": 0.007436,
+        "accel_z": 9.575687,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      },
+      {
+        "accel_x": 1.674137,
+        "accel_y": 0.009846,
+        "accel_z": 9.577849,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      },
+      {
+        "accel_x": 1.674137,
+        "accel_y": 0.009846,
+        "accel_z": 9.577849,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      },
+      {
+        "accel_x": 1.670617,
+        "accel_y": 0.007548,
+        "accel_z": 9.592591,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      },
+      {
+        "accel_x": 1.678191,
+        "accel_y": 0.002792,
+        "accel_z": 9.596769,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      },
+      {
+        "accel_x": 1.678604,
+        "accel_y": 0.007612,
+        "accel_z": 9.601508,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:12Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:12Z"
+  },
+  "C85D60BD9E7C_20250612045913_12": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045913_12",
+    "samples": [
+      {
+        "accel_x": 1.67456,
+        "accel_y": -0.002093,
+        "accel_z": 9.582699,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      },
+      {
+        "accel_x": 1.681922,
+        "accel_y": 0.000318,
+        "accel_z": 9.584444,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      },
+      {
+        "accel_x": 1.683471,
+        "accel_y": 0.007436,
+        "accel_z": 9.574647,
+        "gyro_x": -0.000403,
+        "gyro_y": -0.000213,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      },
+      {
+        "accel_x": 1.688659,
+        "accel_y": 0.005074,
+        "accel_z": 9.579018,
+        "gyro_x": -0.000403,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      },
+      {
+        "accel_x": 1.683475,
+        "accel_y": 0.000253,
+        "accel_z": 9.574696,
+        "gyro_x": -0.000137,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      },
+      {
+        "accel_x": 1.686899,
+        "accel_y": 0.002728,
+        "accel_z": 9.586397,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      },
+      {
+        "accel_x": 1.682128,
+        "accel_y": 0.005122,
+        "accel_z": 9.586798,
+        "gyro_x": 0.000396,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      },
+      {
+        "accel_x": 1.677357,
+        "accel_y": 0.005122,
+        "accel_z": 9.587214,
+        "gyro_x": 0.000396,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      },
+      {
+        "accel_x": 1.679325,
+        "accel_y": 0.007484,
+        "accel_z": 9.582219,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      },
+      {
+        "accel_x": 1.674967,
+        "accel_y": 0.014699,
+        "accel_z": 9.587358,
+        "gyro_x": 0.000396,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:13Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:13Z"
+  },
+  "C85D60BD9E7C_20250612045914_13": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045914_13",
+    "samples": [
+      {
+        "accel_x": 1.679332,
+        "accel_y": -0.004487,
+        "accel_z": 9.582299,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      },
+      {
+        "accel_x": 1.677779,
+        "accel_y": -0.004423,
+        "accel_z": 9.592048,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      },
+      {
+        "accel_x": 1.678195,
+        "accel_y": -0.00439,
+        "accel_z": 9.596818,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.000586,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      },
+      {
+        "accel_x": 1.672801,
+        "accel_y": -0.004439,
+        "accel_z": 9.590078,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      },
+      {
+        "accel_x": 1.680161,
+        "accel_y": 0.000366,
+        "accel_z": 9.591807,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      },
+      {
+        "accel_x": 1.684934,
+        "accel_y": -0.004423,
+        "accel_z": 9.591423,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      },
+      {
+        "accel_x": 1.68711,
+        "accel_y": -0.002044,
+        "accel_z": 9.588814,
+        "gyro_x": 0.000662,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      },
+      {
+        "accel_x": 1.688665,
+        "accel_y": -0.004503,
+        "accel_z": 9.579082,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.000586,
+        "gyro_z": 0.000655,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      },
+      {
+        "accel_x": 1.68068,
+        "accel_y": -0.009355,
+        "accel_z": 9.570197,
+        "gyro_x": 0.000396,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      },
+      {
+        "accel_x": 1.686489,
+        "accel_y": -0.006881,
+        "accel_z": 9.581691,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:14Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:14Z"
+  },
+  "C85D60BD9E7C_20250612045915_14": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045915_14",
+    "samples": [
+      {
+        "accel_x": 1.681922,
+        "accel_y": 0.000318,
+        "accel_z": 9.584444,
+        "gyro_x": 0.000396,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.670206,
+        "accel_y": -0.002061,
+        "accel_z": 9.587886,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.675394,
+        "accel_y": -0.004423,
+        "accel_z": 9.592256,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.00048,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.675602,
+        "accel_y": -0.004407,
+        "accel_z": 9.59464,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.678402,
+        "accel_y": -0.00198,
+        "accel_z": 9.599186,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.681408,
+        "accel_y": 0.002856,
+        "accel_z": 9.606102,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000122,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.680784,
+        "accel_y": 0.002808,
+        "accel_z": 9.598947,
+        "gyro_x": 0.000396,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.683376,
+        "accel_y": 0.005218,
+        "accel_z": 9.601108,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.688353,
+        "accel_y": 0.007628,
+        "accel_z": 9.603061,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.688358,
+        "accel_y": -0.001948,
+        "accel_z": 9.603125,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.000586,
+        "gyro_z": 0.000389,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:15Z"
+  },
+  "C85D60BD9E7C_20250612045916_15": {
+    "calibration": {
+      "cos_tilt_x": 0.996218,
+      "cos_tilt_y": 0.999978,
+      "gyroBias_x": 0.194122,
+      "gyroBias_y": 0.025527,
+      "gyroBias_z": 0.015865,
+      "sin_tilt_x": 0.086891,
+      "sin_tilt_y": -0.006701
+    },
+    "device_id": "C85D60BD9E7C",
+    "message_id": "C85D60BD9E7C_20250612045916_15",
+    "samples": [
+      {
+        "accel_x": 1.682439,
+        "accel_y": -0.007009,
+        "accel_z": 9.562819,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.681513,
+        "accel_y": -0.011685,
+        "accel_z": 9.579754,
+        "gyro_x": 0.000129,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.686492,
+        "accel_y": -0.011669,
+        "accel_z": 9.581723,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.687831,
+        "accel_y": -0.002173,
+        "accel_z": 9.569525,
+        "gyro_x": 0.000129,
+        "gyro_y": 0.00032,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.69001,
+        "accel_y": -0.004583,
+        "accel_z": 9.566949,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.685865,
+        "accel_y": -0.006929,
+        "accel_z": 9.574535,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000411,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.684309,
+        "accel_y": -0.002077,
+        "accel_z": 9.584251,
+        "gyro_x": -0.000137,
+        "gyro_y": -0.000213,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.686486,
+        "accel_y": -0.002093,
+        "accel_z": 9.581659,
+        "gyro_x": -0.000137,
+        "gyro_y": 5.3e-05,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.681508,
+        "accel_y": -0.002109,
+        "accel_z": 9.57969,
+        "gyro_x": -0.000137,
+        "gyro_y": -0.000213,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:15Z"
+      },
+      {
+        "accel_x": 1.689284,
+        "accel_y": 0.002728,
+        "accel_z": 9.586189,
+        "gyro_x": 0.000129,
+        "gyro_y": -0.000213,
+        "gyro_z": -0.000144,
+        "target": "Normal Walk",
+        "time": "2025-06-12T04:59:16Z"
+      }
+    ],
+    "timestamp": "2025-06-12T04:59:16Z"
+  }
+}

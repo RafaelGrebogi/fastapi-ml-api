@@ -6,6 +6,10 @@ from pathlib import Path
 from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
 
+from supabase_client import supabase
+from utils.service_utils import get_service_details, upload_result_to_db
+from context_vars import current_user_id, current_service_id, current_DeviceId
+
 # Import TensorFlow handler
 # from tensorflow_handler import train_model as tf_train_model, predict_samples as tf_predict_samples
 
@@ -53,7 +57,13 @@ def train_model(df: pd.DataFrame, data_path: str) -> dict:
         "samples": len(X)
     }
 
-    if USE_TENSORFLOW:
+    ServiceId = current_service_id.get()
+    success, service_details = get_service_details(ServiceId, supabase)
+    ml_method = service_details.get("ml_method")
+    DeviceId = service_details.get("device_id")
+    current_DeviceId.set(DeviceId)
+
+    if USE_TENSORFLOW and ml_method and ml_method.get("id") == 2:
         from tensorflow_handler import train_model as tf_train_model
         print(" Training TensorFlow model...")
         y_encoded = encode_labels(y)
@@ -80,6 +90,9 @@ def train_model(df: pd.DataFrame, data_path: str) -> dict:
         with open(metadata_path, "w") as f:
             json.dump(metadata, f, indent=2)
 
+        # Upload metadata to the database
+        upload_response = upload_result_to_db(json_data=metadata, supabase=supabase, isDev=True)
+
         print(f" TensorFlow model archive created at: {ARCHIVE_DIR}")
 
         return {
@@ -89,7 +102,7 @@ def train_model(df: pd.DataFrame, data_path: str) -> dict:
             "samples": len(X),
         }
 
-    else:
+    elif ml_method and ml_method.get("id") == 1:
         print(" Training RandomForest model...")
         model = RandomForestClassifier()
         model.fit(X, y)
@@ -112,6 +125,15 @@ def train_model(df: pd.DataFrame, data_path: str) -> dict:
         with open(metadata_path, "w") as f:
             json.dump(metadata, f, indent=2)
 
+        # Upload metadata to the database
+        upload_response = upload_result_to_db(json_data=metadata, supabase=supabase, isDev=True)
+
+        # Optional: check if it succeeded
+        if upload_response["success"]:
+            print("Result metadata uploaded successfully.")
+        else:
+            print("Upload failed:", upload_response["message"])
+
         print(f" RandomForest model archive created at: {ARCHIVE_DIR}")
 
         return {
@@ -132,7 +154,11 @@ def test_model(df: pd.DataFrame) -> dict:
     X = df.drop(columns=["label"])
     y_true = df["label"]
 
-    if USE_TENSORFLOW:
+    ServiceId = current_service_id.get()
+    success, service_details = get_service_details(ServiceId, supabase)
+    ml_method = service_details.get("ml_method")
+
+    if USE_TENSORFLOW and ml_method and ml_method.get("id") == 2:
         from tensorflow_handler import predict_samples as tf_predict_samples
         print(" Testing TensorFlow model...")
         y_encoded = encode_labels(y_true)
@@ -141,7 +167,8 @@ def test_model(df: pd.DataFrame) -> dict:
         report = classification_report(y_encoded, y_pred, output_dict=True)
         # Calculate correct predictions
         corrects = (y_encoded == y_pred).tolist()
-    else:
+
+    elif ml_method and ml_method.get("id") == 1:
         print(" Testing RandomForest model...")
         if not MODEL_PATH.exists():
             return {"error": "Model not found. Please train first."}
@@ -153,14 +180,35 @@ def test_model(df: pd.DataFrame) -> dict:
 
     results_path = RESULTS_DIR / "test_results.json"
 
-
+    # Prepare result data
+    result_data = {
+        "metrics": report,
+        "predictions": y_pred.tolist(),
+        "targets": y_true.tolist(),
+        "corrects": corrects
+    }
     with open(results_path, "w") as f:
-        json.dump({
-            "metrics": report,
-            "predictions": y_pred.tolist(),
-            "targets": y_true.tolist(),
-            "corrects": corrects
-        }, f, indent=2)
+        json.dump(result_data, f, indent=2)
+    # with open(results_path, "w") as f:
+    #     json.dump({
+    #         "metrics": report,
+    #         "predictions": y_pred.tolist(),
+    #         "targets": y_true.tolist(),
+    #         "corrects": corrects
+    #     }, f, indent=2)
+
+
+    # Upload test_results to the database
+    upload_response = upload_result_to_db(json_data=result_data, supabase=supabase, isDev=True)
+
+    # Optional: check if it succeeded
+    if upload_response["success"]:
+        print("Result metadata uploaded successfully.")
+    else:
+        print("Upload failed:", upload_response["message"])
+
+
+
     print(" Testing completed!")
     return {
         "status": "testing complete",
@@ -177,11 +225,16 @@ def predict_model(df: pd.DataFrame) -> dict:
 
     X = df.drop(columns=["label"])
 
-    if USE_TENSORFLOW:
+    ServiceId = current_service_id.get()
+    success, service_details = get_service_details(ServiceId, supabase)
+    ml_method = service_details.get("ml_method")
+
+    if USE_TENSORFLOW and ml_method and ml_method.get("id") == 2:
         from tensorflow_handler import predict_samples as tf_predict_samples
         print(" Predicting with TensorFlow model...")
         y_pred = tf_predict_samples(X.values)
-    else:
+
+    elif ml_method and ml_method.get("id") == 1:
         print(" Predicting with RandomForest model...")
         if not MODEL_PATH.exists():
             return {"error": "Model not found. Please train first."}
@@ -189,10 +242,27 @@ def predict_model(df: pd.DataFrame) -> dict:
         y_pred = model.predict(X)
 
     results_path = RESULTS_DIR / "predictions.json"
+    # with open(results_path, "w") as f:
+    #     json.dump({
+    #         "predictions": y_pred.tolist()
+    #     }, f, indent=2)
+
+    # Prepare result data
+    result_data = {
+        "predictions": y_pred.tolist()
+    }
     with open(results_path, "w") as f:
-        json.dump({
-            "predictions": y_pred.tolist()
-        }, f, indent=2)
+        json.dump(result_data, f, indent=2)
+
+    # Upload test_results to the database
+    upload_response = upload_result_to_db(json_data=result_data, supabase=supabase, isDev=False)
+
+    # Optional: check if it succeeded
+    if upload_response["success"]:
+        print("Result metadata uploaded successfully.")
+    else:
+        print("Upload failed:", upload_response["message"])
+
     print(" Prediction completed!")
     return {
         "status": "prediction complete",

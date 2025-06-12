@@ -1,0 +1,7 @@
+{
+  "timestamp": "20250612_154018",
+  "training_file": "data/features/C85D60BD9E7C_session14_20250612_154014.csv",
+  "samples": 2,
+  "method": "RandomForest",
+  "model_path": "model_archive/20250612_154018/model_20250612_154018.pkl"
+}

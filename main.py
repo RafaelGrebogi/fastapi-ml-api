@@ -9,8 +9,10 @@ import asyncpg
 from dotenv import load_dotenv
 import os
 
-from supabase import create_client, Client
+from supabase_client import supabase
 from utils.auth import is_admin_user
+from utils.service_utils import check_service_is_active
+from context_vars import current_user_id, current_service_id
 
 
 
@@ -91,10 +93,10 @@ def home():
 #         await conn.close()
 
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+# SUPABASE_URL = os.getenv("SUPABASE_URL")
+# SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+# supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 @app.get("/get-user-status")
 async def get_user_status(username: str = Query(...), device_id: str = Query(...)):
@@ -182,17 +184,32 @@ async def get_user_status(username: str = Query(...), device_id: str = Query(...
 
 
 @app.post("/trigger-training")
-async def trigger_training(request: Request, UserId: int = Query(...), ServiceId: int = Query(...)):
+async def trigger_training(request: Request):
     data = await request.json()
     device_id = data.get("device_id")
+    user_id = data.get("user_id")
+    service_id = data.get("service_id")
 
     if not device_id:
         return {"error": "Missing device_id in request"}
+    if not user_id:
+        return {"error": "Missing user_id in request"}
+    if not service_id:
+        return {"error": "Missing service_id in request"}
 
     # Get admin user
-    is_admin, message = is_admin_user(UserId, supabase)
+    is_admin, message = is_admin_user(user_id, supabase)
     if not is_admin:
         return {"error": message}
+    
+    # Get service status
+    is_active, message = check_service_is_active(service_id, supabase)
+    if not is_active:
+        return {"error": message}
+
+    # Store in ContextVars
+    current_user_id.set(user_id)
+    current_service_id.set(service_id)
 
     success = await process_training_data(device_id=device_id)
     if success:
@@ -207,19 +224,50 @@ async def trigger_training(request: Request, UserId: int = Query(...), ServiceId
 @app.post("/trigger-testing")
 async def trigger_testing(request: Request):
     body = await request.json()
+    
     device_id = body.get("device_id")
+    user_id = body.get("user_id")
+    service_id = body.get("service_id")
+
+    
+
     if not device_id:
         return {"error": "Missing device_id in request"}
+    if not user_id:
+        return {"error": "Missing user_id in request"}
+    if not service_id:
+        return {"error": "Missing service_id in request"}
+    
+    # Store in ContextVars
+    current_user_id.set(user_id)
+    current_service_id.set(service_id)
     
     result = process_testing_data(device_id)
     return result
 
+
+
+
 @app.post("/trigger-production")
 async def trigger_production(request: Request):
     body = await request.json()
+    
     device_id = body.get("device_id")
+    user_id = body.get("user_id")
+    service_id = body.get("service_id")
+
+    
+
     if not device_id:
         return {"error": "Missing device_id in request"}
+    if not user_id:
+        return {"error": "Missing user_id in request"}
+    if not service_id:
+        return {"error": "Missing service_id in request"}
+    
+    # Store in ContextVars
+    current_user_id.set(user_id)
+    current_service_id.set(service_id)
     
     result = process_production_data(device_id)
     return result
