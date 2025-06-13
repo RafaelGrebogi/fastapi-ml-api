@@ -60,8 +60,7 @@ def train_model(df: pd.DataFrame, data_path: str) -> dict:
     ServiceId = current_service_id.get()
     success, service_details = get_service_details(ServiceId, supabase)
     ml_method = service_details.get("ml_method")
-    DeviceId = service_details.get("device_id")
-    current_DeviceId.set(DeviceId)
+    
 
     if USE_TENSORFLOW and ml_method and ml_method.get("id") == 2:
         from tensorflow_handler import train_model as tf_train_model
@@ -126,7 +125,7 @@ def train_model(df: pd.DataFrame, data_path: str) -> dict:
             json.dump(metadata, f, indent=2)
 
         # Upload metadata to the database
-        upload_response = upload_result_to_db(json_data=metadata, supabase=supabase, isDev=True)
+        upload_response = upload_result_to_db(json_data=metadata, supabase=supabase, isDev=True, mode=1)
 
         # Optional: check if it succeeded
         if upload_response["success"]:
@@ -199,7 +198,7 @@ def test_model(df: pd.DataFrame) -> dict:
 
 
     # Upload test_results to the database
-    upload_response = upload_result_to_db(json_data=result_data, supabase=supabase, isDev=True)
+    upload_response = upload_result_to_db(json_data=result_data, supabase=supabase, isDev=True, mode=2)
 
     # Optional: check if it succeeded
     if upload_response["success"]:
@@ -255,7 +254,7 @@ def predict_model(df: pd.DataFrame) -> dict:
         json.dump(result_data, f, indent=2)
 
     # Upload test_results to the database
-    upload_response = upload_result_to_db(json_data=result_data, supabase=supabase, isDev=False)
+    upload_response = upload_result_to_db(json_data=result_data, supabase=supabase, isDev=False, mode=3)
 
     # Optional: check if it succeeded
     if upload_response["success"]:

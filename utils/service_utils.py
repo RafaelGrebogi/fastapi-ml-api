@@ -6,6 +6,35 @@ import os
 import json
 from context_vars import current_user_id, current_service_id, current_DeviceId
 
+
+
+
+
+def get_device_details(device_serial: str, supabase: Client) -> Tuple[bool, Union[dict, str]]:
+    try:
+        response = (
+            supabase.table("device")
+            .select("id, serial_number")
+            .eq("serial_number", device_serial)
+            .execute()
+        )
+
+        if not response.data:
+            return False, "Device not found"
+
+        device = response.data[0]
+
+        
+        return True, device
+
+    except Exception as e:
+        return False, f"Error fetching device details: {str(e)}"
+
+
+
+
+
+
 def get_service_details(service_id: int, supabase: Client) -> Tuple[bool, Union[dict, str]]:
     """
     Retrieve full service configuration including task and ml_method.
@@ -84,7 +113,7 @@ def check_service_is_active(service_id: int, supabase: Client) -> Tuple[bool, st
 
 
 
-def upload_result_to_db(json_data: Dict, supabase: Client, isDev: bool) -> Dict:
+def upload_result_to_db(json_data: Dict, supabase: Client, isDev: bool, mode: int) -> Dict:
     try:
         user_id = current_user_id.get()
         service_id = current_service_id.get()
@@ -94,6 +123,7 @@ def upload_result_to_db(json_data: Dict, supabase: Client, isDev: bool) -> Dict:
             "service_id": service_id,
             "is_dev": isDev,
             "device_id": DeviceId,
+            "mode_id": mode,
             "result_json": json_data  # Supabase supports native JSON type
         }).execute()
 
