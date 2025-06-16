@@ -1,0 +1,86 @@
+{
+  "metrics": {
+    "Limping": {
+      "precision": 0.8888888888888888,
+      "recall": 1.0,
+      "f1-score": 0.9411764705882353,
+      "support": 8.0
+    },
+    "Normal Walk": {
+      "precision": 1.0,
+      "recall": 0.8888888888888888,
+      "f1-score": 0.9411764705882353,
+      "support": 9.0
+    },
+    "accuracy": 0.9411764705882353,
+    "macro avg": {
+      "precision": 0.9444444444444444,
+      "recall": 0.9444444444444444,
+      "f1-score": 0.9411764705882353,
+      "support": 17.0
+    },
+    "weighted avg": {
+      "precision": 0.9477124183006536,
+      "recall": 0.9411764705882353,
+      "f1-score": 0.9411764705882353,
+      "support": 17.0
+    }
+  },
+  "predictions": [
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping"
+  ],
+  "targets": [
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Normal Walk",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping",
+    "Limping"
+  ],
+  "corrects": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ]
+}

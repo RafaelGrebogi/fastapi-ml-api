@@ -112,7 +112,7 @@ async def trigger_training(request: Request):
     service_id = data.get("service_id")
 
     if not device_id:
-        return {"error": "Missing device_id in request"}
+        return {"error": "Missing device_serial in request"}
     if not user_id:
         return {"error": "Missing user_id in request"}
     if not service_id:
