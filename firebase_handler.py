@@ -116,7 +116,7 @@ def process_production_data(device_id: str):
 
 def get_local_ip():
     """Return the fixed Windows IP address."""
-    local_ip = "192.168.20.5"
+    local_ip = "192.168.20.4"
     print(f"🔧 Using hard-coded Windows IP: {local_ip}")
     return local_ip
 

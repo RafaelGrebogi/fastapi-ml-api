@@ -29,6 +29,8 @@ This project provides a FastAPI-based machine learning API that allows users to 
 Start the FastAPI server:
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000
+
+uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
 ## 💼 API Endpoints

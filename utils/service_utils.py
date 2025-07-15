@@ -124,7 +124,7 @@ def upload_result_to_db(json_data: Dict, supabase: Client, isDev: bool, mode: in
             "is_dev": isDev,
             "device_id": DeviceId,
             "mode_id": mode,
-            "result_json": json_data  # Supabase supports native JSON type
+            "result_json": json_data  
         }).execute()
 
         if response.data:

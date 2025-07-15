@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+# from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 
 # === Config ===
 MODEL_PATH = "models/modelv1.pkl"  # your pickled RandomForest model

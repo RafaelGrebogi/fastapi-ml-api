@@ -9,6 +9,8 @@ from sklearn.ensemble import RandomForestClassifier
 from supabase_client import supabase
 from utils.service_utils import get_service_details, upload_result_to_db
 from context_vars import current_user_id, current_service_id, current_DeviceId
+from results.resultsStats_json2db import prepareResultJson2db
+
 
 # Import TensorFlow handler
 # from tensorflow_handler import train_model as tf_train_model, predict_samples as tf_predict_samples
@@ -247,11 +249,19 @@ def predict_model(df: pd.DataFrame) -> dict:
     #     }, f, indent=2)
 
     # Prepare result data
-    result_data = {
-        "predictions": y_pred.tolist()
-    }
-    with open(results_path, "w") as f:
-        json.dump(result_data, f, indent=2)
+    # result_data = {
+    #     "predictions": y_pred.tolist()
+    # }
+    # with open(results_path, "w") as f:
+    #     json.dump(result_data, f, indent=2)
+
+    #
+    result_data = prepareResultJson2db(
+    predictions=y_pred.tolist(),
+    output_path=results_path,
+    sampling_rate_hz=100
+)
+    #     
 
     # Upload test_results to the database
     upload_response = upload_result_to_db(json_data=result_data, supabase=supabase, isDev=False, mode=3)

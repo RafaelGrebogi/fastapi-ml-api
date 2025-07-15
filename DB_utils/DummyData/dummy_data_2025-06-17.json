@@ -1,0 +1,804 @@
+{
+    "users": [
+        {
+            "id": 95,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Albert Einstein",
+            "deleted_at": null,
+            "username": "einstein",
+            "is_admin": true,
+            "is_active": true,
+            "date_birth": "1950-03-14",
+            "email": "einstein@example.com",
+            "phone": "+61411111111"
+        },
+        {
+            "id": 96,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Marie Curie",
+            "deleted_at": null,
+            "username": "curie",
+            "is_admin": false,
+            "is_active": true,
+            "date_birth": "1975-11-07",
+            "email": "curie@example.com",
+            "phone": "+61411111112"
+        },
+        {
+            "id": 97,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Isaac Newton",
+            "deleted_at": null,
+            "username": "newton",
+            "is_admin": false,
+            "is_active": true,
+            "date_birth": "1985-01-04",
+            "email": "newton@example.com",
+            "phone": "+61411111113"
+        },
+        {
+            "id": 98,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Niels Bohr",
+            "deleted_at": null,
+            "username": "bohr",
+            "is_admin": false,
+            "is_active": false,
+            "date_birth": "1992-10-07",
+            "email": "bohr@example.com",
+            "phone": "+61411111114"
+        },
+        {
+            "id": 99,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Galileo Galilei",
+            "deleted_at": null,
+            "username": "galileo",
+            "is_admin": false,
+            "is_active": true,
+            "date_birth": "1990-02-15",
+            "email": "galileo@example.com",
+            "phone": "+61411111115"
+        },
+        {
+            "id": 100,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Richard Feynman",
+            "deleted_at": null,
+            "username": "feynman",
+            "is_admin": false,
+            "is_active": true,
+            "date_birth": "1968-05-11",
+            "email": "feynman@example.com",
+            "phone": "+61411111116"
+        },
+        {
+            "id": 101,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Stephen Hawking",
+            "deleted_at": null,
+            "username": "hawking",
+            "is_admin": true,
+            "is_active": true,
+            "date_birth": "1960-01-08",
+            "email": "hawking@example.com",
+            "phone": "+61411111117"
+        },
+        {
+            "id": 102,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Paul Dirac",
+            "deleted_at": null,
+            "username": "dirac",
+            "is_admin": false,
+            "is_active": false,
+            "date_birth": "1980-08-08",
+            "email": "dirac@example.com",
+            "phone": "+61411111118"
+        },
+        {
+            "id": 103,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Enrico Fermi",
+            "deleted_at": null,
+            "username": "fermi",
+            "is_admin": false,
+            "is_active": true,
+            "date_birth": "1970-09-29",
+            "email": "fermi@example.com",
+            "phone": "+61411111119"
+        },
+        {
+            "id": 104,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "James Clerk Maxwell",
+            "deleted_at": null,
+            "username": "maxwell",
+            "is_admin": false,
+            "is_active": true,
+            "date_birth": "1972-06-13",
+            "email": "maxwell@example.com",
+            "phone": "+61411111120"
+        },
+        {
+            "id": 105,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Lise Meitner",
+            "deleted_at": null,
+            "username": "meitner",
+            "is_admin": false,
+            "is_active": true,
+            "date_birth": "1980-11-17",
+            "email": "meitner@example.com",
+            "phone": "+61411111121"
+        },
+        {
+            "id": 106,
+            "created_at": "2025-06-17T11:37:38.61909+00:00",
+            "name": "Erwin Schr\u00f6dinger",
+            "deleted_at": null,
+            "username": "schrodinger",
+            "is_admin": false,
+            "is_active": true,
+            "date_birth": "1978-08-12",
+            "email": "schrodinger@example.com",
+            "phone": "+61411111122"
+        }
+    ],
+    "companies": [
+        {
+            "id": 43,
+            "name": "Greyhound Dynamics",
+            "owner_id": 96,
+            "email": "greyhound1@corp.com",
+            "phone": 61211111111,
+            "address": "1 Street NSW",
+            "is_active": true
+        },
+        {
+            "id": 44,
+            "name": "BorderCollie Systems",
+            "owner_id": 97,
+            "email": "bcollie@corp.com",
+            "phone": 61211111112,
+            "address": "2 Street NSW",
+            "is_active": true
+        },
+        {
+            "id": 45,
+            "name": "Whippet AI",
+            "owner_id": 98,
+            "email": "whippet@corp.com",
+            "phone": 61211111113,
+            "address": "3 Street NSW",
+            "is_active": true
+        },
+        {
+            "id": 46,
+            "name": "Poodle Analytics",
+            "owner_id": 99,
+            "email": "poodle@corp.com",
+            "phone": 61211111114,
+            "address": "4 Street NSW",
+            "is_active": true
+        },
+        {
+            "id": 47,
+            "name": "BeagleTech",
+            "owner_id": 100,
+            "email": "beagle@corp.com",
+            "phone": 61211111115,
+            "address": "5 Street NSW",
+            "is_active": false
+        }
+    ],
+    "services": [
+        {
+            "id": 127,
+            "users_id": 95,
+            "task_id": 1,
+            "ml_method_id": 2,
+            "device_id": 1,
+            "start_date": "2022-01-01",
+            "end_date": "2023-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 43
+        },
+        {
+            "id": 128,
+            "users_id": 96,
+            "task_id": 1,
+            "ml_method_id": 2,
+            "device_id": 1,
+            "start_date": "2022-01-01",
+            "end_date": "2023-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 44
+        },
+        {
+            "id": 129,
+            "users_id": 97,
+            "task_id": 1,
+            "ml_method_id": 2,
+            "device_id": 1,
+            "start_date": "2022-01-01",
+            "end_date": "2023-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 45
+        },
+        {
+            "id": 130,
+            "users_id": 98,
+            "task_id": 1,
+            "ml_method_id": 2,
+            "device_id": 1,
+            "start_date": "2023-01-01",
+            "end_date": "2023-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 46
+        },
+        {
+            "id": 131,
+            "users_id": 99,
+            "task_id": 1,
+            "ml_method_id": 2,
+            "device_id": 1,
+            "start_date": "2023-01-01",
+            "end_date": "2023-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 47
+        },
+        {
+            "id": 132,
+            "users_id": 100,
+            "task_id": 1,
+            "ml_method_id": 2,
+            "device_id": 1,
+            "start_date": "2023-01-01",
+            "end_date": "2025-06-17",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 43
+        },
+        {
+            "id": 133,
+            "users_id": 101,
+            "task_id": 1,
+            "ml_method_id": 2,
+            "device_id": 1,
+            "start_date": "2023-01-01",
+            "end_date": "2025-06-17",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 44
+        },
+        {
+            "id": 134,
+            "users_id": 102,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 2,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 45
+        },
+        {
+            "id": 135,
+            "users_id": 103,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 2,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 46
+        },
+        {
+            "id": 136,
+            "users_id": 104,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 2,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 47
+        },
+        {
+            "id": 137,
+            "users_id": 105,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 2,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 43
+        },
+        {
+            "id": 138,
+            "users_id": 106,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 2,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 44
+        },
+        {
+            "id": 139,
+            "users_id": 95,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 2,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 45
+        },
+        {
+            "id": 140,
+            "users_id": 96,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 2,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 46
+        },
+        {
+            "id": 141,
+            "users_id": 97,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 2,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 47
+        },
+        {
+            "id": 142,
+            "users_id": 96,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 1,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 43
+        },
+        {
+            "id": 143,
+            "users_id": 96,
+            "task_id": 1,
+            "ml_method_id": 1,
+            "device_id": 2,
+            "start_date": "2024-01-01",
+            "end_date": "2025-12-31",
+            "created_at": "2025-06-17T11:37:38.744511+00:00",
+            "company_id": 46
+        }
+    ],
+    "results": [
+        {
+            "device_id": 1,
+            "user_id": 95,
+            "service_id": 127,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 95,
+            "service_id": 127,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 95,
+            "service_id": 127,
+            "mode_id": 1,
+            "is_dev": true,
+            "result_json": {
+                "status": "ok",
+                "value": 3
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 95,
+            "service_id": 127,
+            "mode_id": 2,
+            "is_dev": true,
+            "result_json": {
+                "status": "ok",
+                "value": 4
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 96,
+            "service_id": 128,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 96,
+            "service_id": 128,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 96,
+            "service_id": 128,
+            "mode_id": 1,
+            "is_dev": true,
+            "result_json": {
+                "status": "ok",
+                "value": 3
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 96,
+            "service_id": 128,
+            "mode_id": 2,
+            "is_dev": true,
+            "result_json": {
+                "status": "ok",
+                "value": 4
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 97,
+            "service_id": 129,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 97,
+            "service_id": 129,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 98,
+            "service_id": 130,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 98,
+            "service_id": 130,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 99,
+            "service_id": 131,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 99,
+            "service_id": 131,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 100,
+            "service_id": 132,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 100,
+            "service_id": 132,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 101,
+            "service_id": 133,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 101,
+            "service_id": 133,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 102,
+            "service_id": 134,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 102,
+            "service_id": 134,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 103,
+            "service_id": 135,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 103,
+            "service_id": 135,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 104,
+            "service_id": 136,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 104,
+            "service_id": 136,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 105,
+            "service_id": 137,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 105,
+            "service_id": 137,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 106,
+            "service_id": 138,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 106,
+            "service_id": 138,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 95,
+            "service_id": 139,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 95,
+            "service_id": 139,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 96,
+            "service_id": 140,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 96,
+            "service_id": 140,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 97,
+            "service_id": 141,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 97,
+            "service_id": 141,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 96,
+            "service_id": 142,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 1,
+            "user_id": 96,
+            "service_id": 142,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 96,
+            "service_id": 143,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 1
+            }
+        },
+        {
+            "device_id": 2,
+            "user_id": 96,
+            "service_id": 143,
+            "mode_id": 3,
+            "is_dev": false,
+            "result_json": {
+                "status": "ok",
+                "value": 2
+            }
+        }
+    ]
+}
