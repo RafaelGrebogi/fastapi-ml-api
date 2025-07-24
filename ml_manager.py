@@ -260,7 +260,7 @@ def predict_model(df: pd.DataFrame) -> dict:
     predictions=y_pred.tolist(),
     output_path=results_path,
     sampling_rate_hz=100
-)
+    )
     #     
 
     # Upload test_results to the database

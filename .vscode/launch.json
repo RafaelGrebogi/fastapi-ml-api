@@ -15,6 +15,15 @@
                 "--reload"
             ],
             "jinja": true
+        },
+        {
+            "name": "Python: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "subProcess": true
         }
     ]
 }

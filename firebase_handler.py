@@ -7,6 +7,9 @@ from datetime import datetime
 import socket
 from feature_extraction import extract_features_from_firebase_batch
 from ml_manager import run_ml_pipeline
+from results.resultsPlot2db import plot_motion_density, store_supabase_bucket
+
+from context_vars import current_user_id, current_service_id, current_DeviceSerial, current_DeviceId
 
 # Firebase setup
 if not firebase_admin._apps:
@@ -51,9 +54,14 @@ async def process_training_data(device_id: str):
             EXPECTED_DEVICE_ID=device_id  # new parameter
         )
 
-        success, csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
+        success1, csv_path = extract_features_from_firebase_batch(data, USE_MULTI_MESSAGE_WINDOW=True)
 
-        if success:
+        success2, image_bytes = plot_motion_density(data, window_size=3, bw_adjust=0.6)
+        
+        filename = f"{current_service_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+        success3 = store_supabase_bucket(image_bytes=image_bytes, filename=filename, mode="Training", user_id=current_user_id)
+
+        if success1 and success2 and success3:
             # Run training ML pipeline only if extraction succeeded
             ml_result = run_ml_pipeline("training", csv_path)
             print("✅ ML Pipeline Result:", ml_result)
