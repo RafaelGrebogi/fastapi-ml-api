@@ -4,7 +4,7 @@ from supabase import Client
 from typing import Tuple, Union, Dict
 import os
 import json
-from context_vars import current_user_id, current_service_id, current_DeviceId
+from context_vars import current_user_id, current_service_id, current_DeviceId, current_result_id
 
 
 
@@ -128,8 +128,18 @@ def upload_result_to_db(json_data: Dict, supabase: Client, isDev: bool, mode: in
         }).execute()
 
         if response.data:
-            return {"success": True, "message": "Result uploaded successfully", "data": response.data}
+            current_result_id.set(response.data[0]["id"])
+            return {
+                "success": True,
+                "message": "Result uploaded successfully",
+                "data": response.data[0]  # Optional: include entire row
+            }
         else:
             return {"success": False, "message": "Insert failed", "error": response.data}
     except Exception as e:
         return {"success": False, "message": "Exception occurred", "error": str(e)}
+    
+
+
+def get_public_url(bucket: str, path: str, project_ref: str) -> str:
+    return f"https://{project_ref}.supabase.co/storage/v1/object/public/{bucket}/{path}"

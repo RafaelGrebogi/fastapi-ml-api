@@ -142,6 +142,7 @@ def train_model(df: pd.DataFrame, data_path: str) -> dict:
             "model_path": str(MODEL_PATH),
             "archive_path": str(archive_model_path),
             "samples": len(X),
+
         }
 
 

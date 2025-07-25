@@ -9,14 +9,16 @@ import seaborn as sns
 from scipy.ndimage import uniform_filter1d
 from io import BytesIO
 
+
 # # Add the root folder to sys.path so you can import supabase_client
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from supabase_client import s3
+from supabase_client import s3, supabase
+from context_vars import current_user_id, current_service_id
 
 # import boto3
 
 
-def store_supabase_bucket(image_bytes, filename, mode, user_id):
+def store_supabase_bucket(image_bytes, filename, mode):
 
     # ---------------------------
     # Upload to Supabase
@@ -25,12 +27,13 @@ def store_supabase_bucket(image_bytes, filename, mode, user_id):
     # Convert to file-like object
     image_file = BytesIO(image_bytes)
 
-    # Unique file name
-    # filename = f"Training/plot_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+    user_id = current_user_id.get()
+    service_id = current_service_id.get()
+
 
     # Define bucket and path
     bucket_name = "results-figures-bucket"  
-    storage_path = f"users/{user_id}/{mode}/{filename}"  # path inside the bucket
+    storage_path = f"users/{user_id}/{mode}/Service{service_id}/{filename}"  # path inside the bucket
 
 
     # Upload to S3-compatible Supabase storage
@@ -84,7 +87,9 @@ def plot_motion_density(data, window_size=5, bw_adjust=0.5):
 
     # Create the figure and plot
     fig, ax = plt.subplots(figsize=(8, 6))
-    sns.kdeplot(
+
+    # Plot KDE and store the object to attach colorbar
+    kde = sns.kdeplot(
         x=df['accel_x_smooth'],
         y=df['accel_y_smooth'],
         fill=True,
@@ -94,8 +99,30 @@ def plot_motion_density(data, window_size=5, bw_adjust=0.5):
         thresh=0.01,
         ax=ax
     )
-    ax.axhline(0, color='gray', linestyle='--', linewidth=1)
-    ax.axvline(0, color='gray', linestyle='--', linewidth=1)
+
+    # Add colorbar for density scale
+    cbar = plt.colorbar(kde.collections[0], ax=ax, label="Relative Density")
+
+    # Create the figure and plot
+    # fig, ax = plt.subplots(figsize=(8, 6))
+    # sns.kdeplot(
+    #     x=df['accel_x_smooth'],
+    #     y=df['accel_y_smooth'],
+    #     fill=True,
+    #     cmap='coolwarm',
+    #     bw_adjust=bw_adjust,
+    #     levels=50,
+    #     thresh=0.01,
+    #     ax=ax
+    # )
+
+
+    # ax.axhline(0, color='gray', linestyle='--', linewidth=1)
+    # ax.axvline(0, color='gray', linestyle='--', linewidth=1)
+    # Highlighted origin axis
+    ax.axhline(0, color='black', linestyle='-', linewidth=2, zorder=2)
+    ax.axvline(0, color='black', linestyle='-', linewidth=2, zorder=2)
+    
     ax.scatter(df['accel_x_smooth'].mean(), df['accel_y_smooth'].mean(),
                color='black', label='Mean Position', zorder=3)
     ax.set_xlabel('accel_x (Left/Right)')

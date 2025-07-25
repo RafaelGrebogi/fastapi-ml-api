@@ -3,6 +3,9 @@ import os
 from supabase import create_client, Client
 
 import boto3
+from dotenv import load_dotenv
+
+load_dotenv()  # Loads from .env file in project root
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
