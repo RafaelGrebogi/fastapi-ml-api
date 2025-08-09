@@ -12,7 +12,8 @@ import os
 from supabase_client import supabase
 from utils.auth import is_admin_user
 from utils.service_utils import check_service_is_active, get_device_details
-from context_vars import current_user_id, current_service_id, current_DeviceSerial, current_DeviceId
+from context_vars import current_user_id, current_service_id, current_DeviceSerial, current_DeviceId, current_SessionToken
+from endpoints.gps_route import router as gps_router
 
 
 
@@ -43,7 +44,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-
+app.include_router(gps_router)
 
 @app.get("/")
 def home():
@@ -98,6 +99,53 @@ async def get_user_status(username: str = Query(...), device_id: str = Query(...
         return {"error": str(e)}
 
 
+# -------------------------------------
+# -------------------------------------
+
+@app.get("/get-service-status")
+async def get_service_status(service_id: int = Query(...)):
+    try:
+        today = str(date.today())
+
+        # 1. Get the service record and join with company and user
+        service_query = (
+            supabase.table("service")
+            .select("id, start_date, end_date, users_id, company(name)")
+            .eq("id", service_id)
+            .execute()
+        )
+
+        if not service_query.data:
+            return {"error": "Service not found"}
+
+        service = service_query.data[0]
+
+        # 2. Get user_id and check if the user is active
+        user_id = service["users_id"]
+        user_query = (
+            supabase.table("users")
+            .select("id, is_active")
+            .eq("id", user_id)
+            .execute()
+        )
+
+        if not user_query.data or not user_query.data[0]["is_active"]:
+            return {"error": "User inactive or not found"}
+
+        # 3. Check if the service is currently active
+        active = service["start_date"] <= today <= service["end_date"]
+
+        return {
+            "user_id": str(user_id),
+            "service_id": str(service_id),
+            "has_active_service": active,
+            "company": {
+                "name": service["company"]["name"]
+            }
+        }
+
+    except Exception as e:
+        return {"error": str(e)}
 
 
 # -------------------------------------
@@ -110,6 +158,7 @@ async def trigger_training(request: Request):
     device_id = data.get("device_id") # THIS IS DEVICE SERIAL NUMBER | device_id TO BE RENAMED TO device_serial
     user_id = data.get("user_id")
     service_id = data.get("service_id")
+    session_token = data.get("session_token")
 
     if not device_id:
         return {"error": "Missing device_serial in request"}
@@ -117,6 +166,8 @@ async def trigger_training(request: Request):
         return {"error": "Missing user_id in request"}
     if not service_id:
         return {"error": "Missing service_id in request"}
+    if not session_token:
+        return {"error": "Missing session_token in request"}
 
     # Get admin user
     is_admin, message = is_admin_user(user_id, supabase)
@@ -138,6 +189,7 @@ async def trigger_training(request: Request):
     current_service_id.set(service_id)
     current_DeviceSerial.set(device_id)
     current_DeviceId.set(device_details["id"])
+    current_SessionToken.set(session_token)
 
     success = await process_training_data(device_id=device_id)
     if success:

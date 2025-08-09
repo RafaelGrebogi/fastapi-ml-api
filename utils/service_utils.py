@@ -4,7 +4,7 @@ from supabase import Client
 from typing import Tuple, Union, Dict
 import os
 import json
-from context_vars import current_user_id, current_service_id, current_DeviceId, current_result_id
+from context_vars import current_user_id, current_service_id, current_DeviceId, current_result_id, current_SessionToken
 
 
 
@@ -118,13 +118,16 @@ def upload_result_to_db(json_data: Dict, supabase: Client, isDev: bool, mode: in
         user_id = current_user_id.get()
         service_id = current_service_id.get()
         DeviceId = current_DeviceId.get()
+        sessionToken = current_SessionToken.get()
+
         response = supabase.table("results").insert({
             "user_id": user_id,
             "service_id": service_id,
             "is_dev": isDev,
             "device_id": DeviceId,
             "mode_id": mode,
-            "result_json": json_data  
+            "result_json": json_data,
+            "session_token": sessionToken  
         }).execute()
 
         if response.data:
@@ -141,5 +144,4 @@ def upload_result_to_db(json_data: Dict, supabase: Client, isDev: bool, mode: in
     
 
 
-def get_public_url(bucket: str, path: str, project_ref: str) -> str:
-    return f"https://{project_ref}.supabase.co/storage/v1/object/public/{bucket}/{path}"
+

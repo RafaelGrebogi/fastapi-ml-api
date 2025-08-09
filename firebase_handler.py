@@ -77,6 +77,8 @@ async def process_training_data(device_id: str):
         else:
             print("❌ Supabase bucket storing failed.")
 
+        
+
 
         # Clean up original data and control flag
         data_ref.delete()
