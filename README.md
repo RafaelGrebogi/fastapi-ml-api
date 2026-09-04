@@ -1,75 +1,80 @@
-# Machine Learning API for Regression
+# Motion Data ML API
 
-This project provides a FastAPI-based machine learning API that allows users to make predictions using trained models.
+Python backend for the Motion Data System, providing data processing, feature extraction and machine-learning functionality for motion data collected by an ESP32-based embedded device.
 
-## Features
-- **Diabetes Prediction:** Predicts diabetes progression using a linear regression model.
-- **California Housing Prediction:** Estimates housing prices based on features.
-- **FastAPI Integration:** Provides an API for real-time predictions.
+The API is implemented using **FastAPI** and integrates with **Firebase** and **Supabase** for device communication, data storage and service management.
 
-## 🛠 Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/RafaelGrebogi/ml-api.git
-   cd ml-api
-   ```
+## Main Functions
 
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-   ```
+The backend supports three main operating modes:
 
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+* **Training** – processes labelled motion data and trains a machine-learning model
+* **Testing** – evaluates a trained model against labelled test data
+* **Production** – processes new sensor data and generates predictions
 
-## 🚀 Running the API
-Start the FastAPI server:
+The API exposes endpoints that allow the embedded system and associated applications to trigger these workflows.
+
+## Data Processing
+
+Motion data from the accelerometer and gyroscope is processed using fixed-size windows.
+
+For each window, features are extracted from the three accelerometer and gyroscope axes, including:
+
+* Time-domain statistical features
+* Frequency-domain features
+* FFT-based signal information
+
+The extracted features are then used as inputs to the machine-learning models.
+
+## Machine Learning
+
+The current implementation supports:
+
+* **Random Forest classification using scikit-learn**
+* **TensorFlow/Keras models**
+
+The system includes model training, testing and prediction workflows, together with model archiving and storage of test results.
+
+## Backend and Database
+
+The FastAPI application integrates with:
+
+* **Firebase** for receiving and processing sensor data
+* **Supabase/PostgreSQL** for users, devices, services and application data
+* REST API endpoints for communication between the embedded device and backend services
+
+Environment variables are used for database and service credentials.
+
+## Main Technologies
+
+* Python
+* FastAPI
+* NumPy
+* Pandas
+* SciPy
+* scikit-learn
+* TensorFlow/Keras
+* Firebase
+* Supabase/PostgreSQL
+
+## Related Project
+
+The embedded firmware and data acquisition system are available here:
+
+[MotionDataSystem](https://github.com/RafaelGrebogi/MotionDataSystem)
+
+The embedded system uses an **ESP32 and MPU6050 IMU** to acquire motion data and communicate with this backend for processing and machine-learning analysis.
+
+## Running the API
+
+Create and activate a Python virtual environment, install the required dependencies, and start the FastAPI server with:
+
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000
-
-uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
-## 💼 API Endpoints
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST   | `/predict_diabetes` | Predicts diabetes progression. |
-| POST   | `/predict_calihousing` | Predicts house prices in California. |
+Required service credentials and configuration should be provided through environment variables.
 
-## 📝 Example API Request (Diabetes)
-Send a **POST request** with JSON input:
-```json
-{
-    "age": 0.05,
-    "sex": -0.02,
-    "bmi": 0.04,
-    "bp": 0.02,
-    "s1": -0.01,
-    "s2": 0.03,
-    "s3": -0.02,
-    "s4": 0.01,
-    "s5": -0.04,
-    "s6": 0.02
-}
-```
+## Development Status
 
-## Model Equations
-### **Diabetes Model**
-```
-y = 19.570*age + -240.127*sex + 521.213*bmi + 298.487*bp + -580.913*s1 +
-    255.229*s2 + 4.186*s3 + 142.841*s4 + 730.115*s5 + 68.946*s6 + 152.478
-```
-
-### **California Housing Model**
-```
-y = 0.442*MedInc + 0.010*HouseAge + -0.115*AveRooms + 0.761*AveBedrms +
-    -0.000*Population + -0.008*AveOccup + -0.429*Latitude + -0.443*Longitude + -37.812
-```
-
-## 📝 Notes
-- The models are trained using **scikit-learn** and stored as `.pkl` files.
-- **gplearn** and **TensorFlow Keras** may be integrated for future improvements.
-
+This repository is part of an ongoing engineering project exploring embedded motion sensing, data processing and machine-learning-based movement analysis.
